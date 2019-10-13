@@ -3,7 +3,6 @@ package com.woollen.admin.dao.entry;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,12 +14,12 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author weiyang
- * @since 2019-10-12
+ * @since 2019-10-13
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class SysMenu extends Model<SysMenu> {
+public class PayOrder extends Model<PayOrder> {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,49 +27,49 @@ public class SysMenu extends Model<SysMenu> {
     private Integer id;
 
     /**
-     * 上级菜单ID
+     * 订单号
      */
-    private Integer parentId;
+    private String seq;
 
     /**
-     * 是否父菜单
+     * 第三方交易单号
      */
-    private Boolean isParent;
+    private String outSeq;
 
     /**
-     * 菜单名称
+     * 2:已付款
      */
-    private String name;
+    private Integer status;
 
     /**
-     * 菜单地址
+     * 单位分
      */
-    private String url;
+    private Long orderFee;
 
     /**
-     * 类型     0：目录   1：菜单   2：按钮
+     * 实际支付金额，单位分
      */
-    private Integer type;
+    private Long payFee;
 
     /**
-     * 菜单图标
+     * 支付渠道
      */
-    private String icon;
+    private Integer payChannel;
 
     /**
-     * 排序
+     * 支付时间
      */
-    private Integer sort;
+    private Long payTime;
 
     /**
      * 创建时间
      */
-    private LocalDateTime created;
+    private Long created;
 
     /**
      * 更新时间
      */
-    private LocalDateTime updated;
+    private Long updated;
 
 
     @Override

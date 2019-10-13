@@ -3,7 +3,6 @@ package com.woollen.admin.dao.entry;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,12 +14,12 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author weiyang
- * @since 2019-10-12
+ * @since 2019-10-13
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class SysMenu extends Model<SysMenu> {
+public class OrderInfo extends Model<OrderInfo> {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,49 +27,64 @@ public class SysMenu extends Model<SysMenu> {
     private Integer id;
 
     /**
-     * 上级菜单ID
+     * 订单号
      */
-    private Integer parentId;
+    private String seq;
 
     /**
-     * 是否父菜单
+     * 第三方交易单号
      */
-    private Boolean isParent;
+    private String outSeq;
 
     /**
-     * 菜单名称
+     * 姓名
      */
     private String name;
 
     /**
-     * 菜单地址
+     * 手机号
      */
-    private String url;
+    private String phone;
 
     /**
-     * 类型     0：目录   1：菜单   2：按钮
+     * 1:待付款，2:已付款，3:申请退款，4:退款审核中，5:退款完成，6:退款失败，9:订单过期
      */
-    private Integer type;
+    private Integer status;
 
     /**
-     * 菜单图标
+     * 广告来源
      */
-    private String icon;
+    private String adtSource;
 
     /**
-     * 排序
+     * 单位分
      */
-    private Integer sort;
+    private Long orderFee;
+
+    /**
+     * 实际支付金额，单位分
+     */
+    private Long payFee;
+
+    /**
+     * 支付渠道
+     */
+    private Integer payChannel;
+
+    /**
+     * 支付时间
+     */
+    private Integer payTime;
 
     /**
      * 创建时间
      */
-    private LocalDateTime created;
+    private Long created;
 
     /**
      * 更新时间
      */
-    private LocalDateTime updated;
+    private Long updated;
 
 
     @Override

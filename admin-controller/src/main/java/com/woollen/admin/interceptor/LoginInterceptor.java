@@ -43,6 +43,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        response.setContentType("application/json;charset=UTF-8");
         if (handler instanceof HandlerMethod){
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             NoLoginValidate noLoginValidate = handlerMethod.getMethodAnnotation(NoLoginValidate.class);
@@ -61,13 +62,6 @@ public class LoginInterceptor implements HandlerInterceptor {
             return false;
         }
         SysUser sysUser = (SysUser)user;
-        Integer roleId = sysUser.getRoleId();
-        //获取用户角色
-        SysRole sysRole = sysRoleService.getSysRoleById(roleId);
-        List<String> ids = Arrays.asList(sysRole.getMenuIds().split(","));
-        List<SysMenu> sysMenus = sysMenuService.getMenuByRoleIds(ids);
-
-
         return true;
     }
 

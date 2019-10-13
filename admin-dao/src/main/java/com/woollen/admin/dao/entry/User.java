@@ -3,7 +3,6 @@ package com.woollen.admin.dao.entry;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,62 +14,38 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author weiyang
- * @since 2019-10-12
+ * @since 2019-10-13
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class SysMenu extends Model<SysMenu> {
+public class User extends Model<User> {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    /**
-     * 上级菜单ID
-     */
-    private Integer parentId;
-
-    /**
-     * 是否父菜单
-     */
-    private Boolean isParent;
-
-    /**
-     * 菜单名称
-     */
     private String name;
 
-    /**
-     * 菜单地址
-     */
-    private String url;
+    private String password;
 
-    /**
-     * 类型     0：目录   1：菜单   2：按钮
-     */
-    private Integer type;
+    private String phone;
 
-    /**
-     * 菜单图标
-     */
-    private String icon;
-
-    /**
-     * 排序
-     */
-    private Integer sort;
+    /*
+     * 是否删除
+     **/
+    private Boolean isDel;
 
     /**
      * 创建时间
      */
-    private LocalDateTime created;
+    private Long created;
 
     /**
      * 更新时间
      */
-    private LocalDateTime updated;
+    private Long updated;
 
 
     @Override

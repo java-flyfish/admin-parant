@@ -3,7 +3,6 @@ package com.woollen.admin.dao.entry;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,12 +14,12 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author weiyang
- * @since 2019-10-12
+ * @since 2019-10-13
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class SysMenu extends Model<SysMenu> {
+public class RefundOrder extends Model<RefundOrder> {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,49 +27,54 @@ public class SysMenu extends Model<SysMenu> {
     private Integer id;
 
     /**
-     * 上级菜单ID
+     * 订单号
      */
-    private Integer parentId;
+    private String seq;
 
     /**
-     * 是否父菜单
+     * 第三方交易单号
      */
-    private Boolean isParent;
+    private String outSeq;
 
     /**
-     * 菜单名称
+     * 第三方交易单号
      */
-    private String name;
+    private String refundSeq;
 
     /**
-     * 菜单地址
+     * 3:申请退款，4:退款审核中，5:退款完成，6:退款失败
      */
-    private String url;
+    private Integer status;
 
     /**
-     * 类型     0：目录   1：菜单   2：按钮
+     * 退款金额，单位分
      */
-    private Integer type;
+    private Long refundFee;
 
     /**
-     * 菜单图标
+     * 实际支付金额，单位分
      */
-    private String icon;
+    private Long payFee;
 
     /**
-     * 排序
+     * 支付渠道
      */
-    private Integer sort;
+    private Integer payChannel;
 
     /**
-     * 创建时间
+     * 退款完成时间
      */
-    private LocalDateTime created;
+    private Long refundTime;
+
+    /**
+     * 创建时间，即申请退款实际
+     */
+    private Long created;
 
     /**
      * 更新时间
      */
-    private LocalDateTime updated;
+    private Long updated;
 
 
     @Override

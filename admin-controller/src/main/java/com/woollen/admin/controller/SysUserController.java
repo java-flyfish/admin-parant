@@ -1,5 +1,6 @@
 package com.woollen.admin.controller;
 
+import com.woollen.admin.annocation.NoLoginValidate;
 import com.woollen.admin.base.BaseController;
 import com.woollen.admin.dao.entry.SysUser;
 import com.woollen.admin.exception.APException;
@@ -33,6 +34,7 @@ public class SysUserController extends BaseController {
     private SysUserService sysUserService;
 
     @PostMapping("login")
+    @NoLoginValidate
     public Result login(HttpServletRequest request,@Valid LoginRequest loginRequest, BindingResult result){
         if(result.hasErrors()){
             for (ObjectError error : result.getAllErrors()) {

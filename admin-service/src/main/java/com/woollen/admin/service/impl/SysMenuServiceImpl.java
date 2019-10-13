@@ -27,6 +27,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 
         QueryWrapper<SysMenu> wrapper = new QueryWrapper<>();
         wrapper.in("id",ids);
+        wrapper.orderByDesc("is_parent");
         List<SysMenu> sysMenus = sysMenuMapper.selectList(wrapper);
         return sysMenus;
     }
