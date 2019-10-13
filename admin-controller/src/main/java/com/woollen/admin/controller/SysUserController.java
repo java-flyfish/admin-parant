@@ -49,4 +49,11 @@ public class SysUserController extends BaseController {
         request.getSession().setAttribute("sysUser",sysUser);
         return success("登陆成功！");
     }
+
+    @PostMapping("loginOut")
+    public Result loginOut(HttpServletRequest request){
+
+        request.getSession().removeAttribute("sysUser");
+        return success("成功退出登陆！");
+    }
 }

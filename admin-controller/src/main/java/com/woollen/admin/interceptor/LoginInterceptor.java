@@ -43,7 +43,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        response.setContentType("application/json;charset=UTF-8");
+
         if (handler instanceof HandlerMethod){
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             NoLoginValidate noLoginValidate = handlerMethod.getMethodAnnotation(NoLoginValidate.class);
@@ -56,12 +56,12 @@ public class LoginInterceptor implements HandlerInterceptor {
         Object user = session.getAttribute("sysUser");
         if(user == null){
             Result result = new Result("请登录！",false,"请登录！");
+            response.setContentType("application/json;charset=UTF-8");
             PrintWriter writer = response.getWriter();
             writer.write(JSONObject.toJSONString(result));
             writer.close();
             return false;
         }
-        SysUser sysUser = (SysUser)user;
         return true;
     }
 
