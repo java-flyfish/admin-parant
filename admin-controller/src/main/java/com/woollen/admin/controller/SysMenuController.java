@@ -1,4 +1,4 @@
-package com.woollen.admin;
+package com.woollen.admin.controller;
 
 import com.woollen.admin.base.BaseController;
 import com.woollen.admin.dao.entry.SysMenu;

@@ -1,4 +1,4 @@
-package com.woollen.admin;
+package com.woollen.admin.controller;
 
 import com.woollen.admin.base.BaseController;
 import org.springframework.web.bind.annotation.RequestMapping;
