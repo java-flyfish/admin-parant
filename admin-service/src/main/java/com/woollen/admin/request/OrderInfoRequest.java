@@ -1,4 +1,4 @@
-package com.woollen.admin.service.request;
+package com.woollen.admin.request;
 
 import lombok.Data;
 

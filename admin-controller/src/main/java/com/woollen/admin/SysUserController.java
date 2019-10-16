@@ -1,4 +1,4 @@
-package com.woollen.admin.controller;
+package com.woollen.admin;
 
 import com.woollen.admin.annocation.NoLoginValidate;
 import com.woollen.admin.base.BaseController;

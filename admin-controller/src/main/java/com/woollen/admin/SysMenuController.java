@@ -1,4 +1,4 @@
-package com.woollen.admin.controller;
+package com.woollen.admin;
 
 import com.woollen.admin.base.BaseController;
 import com.woollen.admin.dao.entry.SysMenu;
@@ -54,13 +54,14 @@ public class SysMenuController extends BaseController {
 
         sysMenus.stream().forEach(sysMenu->{
             if (sysMenu.getIsParent()){
-                SysMenuVo parent = sysMenuVoMap.get(sysMenu.getId());
-                if (parent == null){
-                    parent = new SysMenuVo();
-                    BeanUtils.copyProperties(sysMenu,parent);
-                    parent.setSubSysMenuVo(new ArrayList<>());
-                    sysMenuVoMap.put(sysMenu.getId(),parent);
-                }
+                SysMenuVo parent = Optional.ofNullable(sysMenuVoMap.get(sysMenu.getId()))
+                        .orElseGet(()->{
+                            SysMenuVo vo = new SysMenuVo();
+                            BeanUtils.copyProperties(sysMenu,vo);
+                            vo.setSubSysMenuVo(new ArrayList<>());
+                            return vo;
+                        });
+                sysMenuVoMap.put(sysMenu.getId(),parent);
             }else {
                 SysMenuVo parent = sysMenuVoMap.get(sysMenu.getParentId());
                 SysMenuVo child = new SysMenuVo();

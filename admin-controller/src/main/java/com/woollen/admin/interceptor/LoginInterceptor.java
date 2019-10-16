@@ -32,15 +32,6 @@ import java.util.List;
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
 
-    @Autowired
-    private SysUserService sysUserService;
-
-    @Autowired
-    private SysRoleService sysRoleService;
-
-    @Autowired
-    private SysMenuService sysMenuService;
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 

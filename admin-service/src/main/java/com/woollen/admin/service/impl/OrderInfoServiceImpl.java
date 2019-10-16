@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.woollen.admin.dao.entry.OrderInfo;
 import com.woollen.admin.dao.mapper.OrderInfoMapper;
 import com.woollen.admin.service.OrderInfoService;
-import com.woollen.admin.service.request.OrderInfoRequest;
+import com.woollen.admin.request.OrderInfoRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

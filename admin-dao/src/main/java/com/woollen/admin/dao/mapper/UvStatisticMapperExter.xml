@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woollen.admin.dao.mapper.UvStatisticMapperExter">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.woollen.admin.dao.entry.UvStatistic">
+        <id column="id" property="id" />
+        <result column="source" property="source" />
+        <result column="type" property="type" />
+        <result column="user_id" property="userId" />
+        <result column="created" property="created" />
+        <result column="updated" property="updated" />
+    </resultMap>
+
+    <select id="statisticUv" parameterType="com.woollen.admin.dao.request.UvStatisticRequest" resultType="com.woollen.admin.dao.response.UvStatisticVo">
+        SELECT
+        <if test="uvType  == 1">
+            FROM_UNIXTIME(created/1000,'%Y-%m-%d') as time,
+        </if>
+        <if test="uvType == 2">
+            FROM_UNIXTIME(created/1000,'%Y-%u') as time,
+        </if>
+        <if test="uvType == 3">
+            FROM_UNIXTIME(created/1000,'%Y-%m') as time,
+        </if>
+        <if test="uvType == 4">
+            FROM_UNIXTIME(created/1000,'%Y') as time,
+        </if>
+        count(*) as live FROM uv_statistic
+        where 1=1
+        <if test="beginTime != null ">
+            and created <![CDATA[>=]]> #{statisticRequest.beginTime}
+        </if>
+        <if test="endTime != null ">
+            and created <![CDATA[<=]]> #{statisticRequest.beginTime}
+        </if>
+        <if test="type != null ">
+            and type = #{statisticRequest.type}
+        </if>
+        GROUP BY time order by time desc
+        <if test="beginTime == null and endTime == null">
+            limit 10
+        </if>
+    </select>
+</mapper>

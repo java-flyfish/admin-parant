@@ -1,10 +1,10 @@
-package com.woollen.admin.controller;
+package com.woollen.admin;
 
 import com.woollen.admin.base.BaseController;
 import com.woollen.admin.dao.entry.OrderInfo;
 import com.woollen.admin.response.Result;
 import com.woollen.admin.service.OrderInfoService;
-import com.woollen.admin.service.request.OrderInfoRequest;
+import com.woollen.admin.request.OrderInfoRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

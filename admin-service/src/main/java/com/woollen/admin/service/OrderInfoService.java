@@ -1,7 +1,7 @@
 package com.woollen.admin.service;
 
 import com.woollen.admin.dao.entry.OrderInfo;
-import com.woollen.admin.service.request.OrderInfoRequest;
+import com.woollen.admin.request.OrderInfoRequest;
 
 import java.util.List;
 
