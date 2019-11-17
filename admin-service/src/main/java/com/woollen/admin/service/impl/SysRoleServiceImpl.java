@@ -17,11 +17,11 @@ import org.springframework.stereotype.Service;
 public class SysRoleServiceImpl implements SysRoleService {
 
     @Autowired
-    private SysRoleMapper roleMapper;
+    private SysRoleMapper sysRoleMapper;
 
     @Override
     public SysRole getSysRoleById(Integer roleId) {
-        SysRole sysRole = roleMapper.selectById(roleId);
+        SysRole sysRole = sysRoleMapper.selectById(roleId);
         return sysRole;
     }
 }

@@ -1,7 +1,7 @@
 package com.woollen.admin.dao.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.woollen.admin.dao.entry.SysRole;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
@@ -9,7 +9,7 @@ import com.woollen.admin.dao.entry.SysRole;
  * </p>
  *
  * @author weiyang
- * @since 2019-10-12
+ * @since 2019-11-17
  */
 public interface SysRoleMapper extends BaseMapper<SysRole> {
 

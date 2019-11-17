@@ -3,7 +3,6 @@ package com.woollen.admin.dao.entry;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,7 +14,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author weiyang
- * @since 2019-10-12
+ * @since 2019-11-17
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -24,22 +23,41 @@ public class SysRole extends Model<SysRole> {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 主键
+     */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    /**
+     * 名称
+     */
     private String name;
-
-    private String menuIds;
 
     /**
      * 创建时间
      */
-    private LocalDateTime created;
+    private Long created;
 
     /**
      * 更新时间
      */
-    private LocalDateTime updated;
+    private Long updated;
+
+    /**
+     * 是否删除
+     */
+    private Boolean isDel;
+
+    /**
+     * 是否启用
+     */
+    private Boolean isEnable;
+
+    /**
+     * 关联资源ids
+     */
+    private String relates;
 
 
     @Override

@@ -44,13 +44,10 @@ public class LoginInterceptor implements HandlerInterceptor {
             }
         }
         HttpSession session = request.getSession();
-        Object user = session.getAttribute("sysUser");
+        SysUser user = (SysUser)session.getAttribute("sysUser");
         if(user == null){
-            Result result = new Result("请登录！",false,"请登录！");
-            response.setContentType("application/json;charset=UTF-8");
-            PrintWriter writer = response.getWriter();
-            writer.write(JSONObject.toJSONString(result));
-            writer.close();
+            String toLogin = request.getScheme() + "://" + request.getHeader("host") + "/login";
+            response.sendRedirect(toLogin);
             return false;
         }
         return true;

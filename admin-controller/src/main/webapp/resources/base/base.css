@@ -1,0 +1,196 @@
+.auto-height {
+    height: 100%;
+}
+
+.auto-width {
+    width: 100%;
+}
+
+.float-right {
+    float: right !important;
+}
+
+.color-white {
+    background: white;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
+.no-margin {
+    margin: 0 !important;
+}
+
+.no-radius {
+    border-radius: 0 !important;
+}
+
+.no-shadow {
+    box-shadow: none;
+}
+
+.auto-overflow {
+    overflow: auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/*app*/
+.layout {
+    background: #f5f7f9;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.layout-header {
+    height: 60px;
+}
+
+.layout-body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 60px;
+    bottom: 0;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 5px 5px 5px 5px #e5e9f2;
+    margin: 15px;
+}
+
+.layout-content {
+    padding: 15px;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.custom-tabs-style > .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab {
+    border-radius: 0;
+    background: #fff;
+}
+
+.custom-tabs-style > .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab-active {
+    border-top: 1px solid #3399ff;
+}
+
+.custom-tabs-style > .ivu-tabs.ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab-active:before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: #3399ff;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.custom-tabs-style > .ivu-tabs > .ivu-tabs-content-animated {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 47px;
+    bottom: 0;
+}
+
+.router-view {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 48px;
+    bottom: 0;
+    padding: 15px;
+}
+
+.layout-header-content {
+    height: 45px;
+    padding: 0 !important;
+}
+
+.layout-body-content {
+    background: #fff;
+    position: absolute;
+    top: 60px;
+    bottom: 60px;
+    left: 15px;
+    right: 15px;
+}
+
+.layout-footer-content {
+    height: 45px;
+    padding: 0 !important;
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+}
+
+.custom-table-page {
+    margin-top: 10px;
+}
+
+.float-dot {
+    font-family: "Monospaced Number";
+    line-height: 1;
+    vertical-align: middle;
+    position: relative;
+    -webkit-transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    transform: translateX(50%);
+    top: 2px;
+    right: 12px;
+    border-radius: 10px;
+    background: #ed4014;
+    border: 1px solid transparent;
+    color: #fff;
+    line-height: 18px;
+    text-align: center;
+    padding: 0 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    -webkit-transform-origin: -10% center;
+    -ms-transform-origin: -10% center;
+    transform-origin: -10% center;
+    z-index: 10;
+    -webkit-box-shadow: 0 0 0 1px #fff;
+    box-shadow: 0 0 0 1px #fff;
+    cursor: pointer;
+}
+
+@-webkit-keyframes FromTopToBottom {
+    0% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0)
+    }
+    50% {
+        -webkit-transform: translateY(4px);
+        transform: translateY(4px)
+    }
+    to {
+        -webkit-transform: translateY(0);
+        transform: translateY(0)
+    }
+}
+
+@keyframes FromTopToBottom {
+    0% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0)
+    }
+    50% {
+        -webkit-transform: translateY(4px);
+        transform: translateY(4px)
+    }
+    to {
+        -webkit-transform: translateY(0);
+        transform: translateY(0)
+    }
+}

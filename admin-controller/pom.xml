@@ -9,6 +9,7 @@
 	</parent>
 	<groupId>com.woollen.admin</groupId>
 	<artifactId>admin-controller</artifactId>
+	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>admin-controller</name>
 	<description>Demo project for Spring Boot</description>
@@ -18,6 +19,17 @@
 	</properties>
 
 	<dependencies>
+		<!-- 过滤tomcat依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- freemark依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-freemarker</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.woollen.admin</groupId>
 			<artifactId>admin-service</artifactId>
@@ -39,13 +51,31 @@
 		</dependency>
 	</dependencies>
 
-	<build>
+	<!--<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-	</build>
+	</build>-->
 
+	<build>
+		<!--<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>1.3.3.RELEASE</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>-->
+		<!--打包成的文件名-->
+		<finalName>ROOT</finalName>
+	</build>
 </project>

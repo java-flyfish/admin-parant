@@ -41,11 +41,11 @@ public class SysMenuController extends BaseController {
         HttpSession session = request.getSession();
         Object user = session.getAttribute("sysUser");
 
-        SysUser managerUser = (SysUser)user;
-        Integer roleId = managerUser.getRoleId();
+        SysUser sysUser = (SysUser)user;
+        Integer roleId = sysUser.getRoleId();
         //获取用户角色
         SysRole sysRole = sysRoleService.getSysRoleById(roleId);
-        List<String> ids = Arrays.asList(sysRole.getMenuIds().split(","));
+        List<String> ids = Arrays.asList(sysRole.getRelates().split(","));
         List<SysMenu> sysMenus = sysMenuService.getMenuByRoleIds(ids);
 
         List<SysMenuVo> sysMenuVoList = new ArrayList<>();

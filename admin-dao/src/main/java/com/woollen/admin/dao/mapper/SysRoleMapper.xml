@@ -6,9 +6,11 @@
     <resultMap id="BaseResultMap" type="com.woollen.admin.dao.entry.SysRole">
         <id column="id" property="id" />
         <result column="name" property="name" />
-        <result column="menu_ids" property="menuIds" />
         <result column="created" property="created" />
         <result column="updated" property="updated" />
+        <result column="is_del" property="isDel" />
+        <result column="is_enable" property="isEnable" />
+        <result column="relates" property="relates" />
     </resultMap>
 
 </mapper>
