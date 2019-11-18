@@ -10,13 +10,6 @@
                                  @on-enter="listByPage(1)">
                         </i-input>
                     </form-item>
-
-                <#--<form-item>-->
-                <#--<i-input clearable type="text" v-model="searchForm.title" placeholder="搜索商品名称"-->
-                <#--@on-enter="listByPage(1)">-->
-                <#--</i-input>-->
-                <#--</form-item>-->
-
                     <form-item>
                         <i-input clearable type="text" v-model="searchForm.userSearch" placeholder="搜索用户id/卡号"
                                  @on-enter="listByPage(1)">
@@ -72,23 +65,27 @@
 
                     <row>
                         <i-col span="8">
-                            <form-item label="组单号">
-                                {{detailFormModal.groupSeq}}
+                            <form-item label="订单id">
+                                {{detailFormModal.id}}
                             </form-item>
                         </i-col>
                         <i-col span="8">
-                            <form-item label="供应商单号">
-                                {{detailFormModal.supplierSeq}}
+                            <form-item label="订单号">
+                                {{detailFormModal.seq}}
                             </form-item>
                         </i-col>
                         <i-col span="8">
-                            <form-item label="供应商">
-                                {{detailFormModal.supplierId}}
+                            <form-item label="名字">
+                                {{detailFormModal.name}}
                             </form-item>
                         </i-col>
                     </row>
-
                     <row>
+                        <i-col span="8">
+                            <form-item label="手机号">
+                                {{detailFormModal.phone}}
+                            </form-item>
+                        </i-col>
                         <i-col span="8">
                             <form-item label="状态">
                                 <div v-if="detailFormModalExtra.editable">
@@ -101,6 +98,14 @@
                                 </div>
                             </form-item>
                         </i-col>
+                        <i-col span="8">
+                            <form-item label="广告来源">
+                                {{detailFormModal.adtSource}}
+                            </form-item>
+                        </i-col>
+                    </row>
+                    <#--<row>
+
                         <i-col span="8">
                             <form-item label="是否删除">
                                 <div v-if="detailFormModalExtra.editable">
@@ -122,7 +127,7 @@
                                 </i-input>
                             </form-item>
                         </i-col>
-                    </row>
+                    </row>-->
                 </Card>
 
                 <Card style="margin-bottom: 20px">
@@ -134,36 +139,19 @@
                     <row>
                         <i-col span="8">
                             <form-item label="支付渠道">
-                                <div v-if="detailFormModalExtra.editable && detailFormModal.tranFlag">
-                                    <i-Select v-model="detailFormModal.payChannel">
-                                        <i-Option v-for="item in store.state.payChannelList" :value="item.value">{{item.label }}</i-Option>
-                                    </i-Select>
-                                </div>
-                                <div v-else>
+                                <form-item label="广告来源">
                                     {{detailFormModal.payChannelLabel}}
-                                </div>
+                                </form-item>
                             </form-item>
                         </i-col>
                         <i-col span="8">
                             <form-item label="交易流水号">
-                                <div v-if="detailFormModalExtra.editable && detailFormModal.tranFlag">
-                                    <i-input v-model="detailFormModal.tranId">
-                                    </i-input>
-                                </div>
-                                <div v-else>
-                                    {{detailFormModal.tranId}}
-                                </div>
+                                {{detailFormModal.outSeq}}
                             </form-item>
                         </i-col>
                         <i-col span="8">
                             <form-item label="支付时间">
-                                <div v-if="detailFormModalExtra.editable && detailFormModal.tranFlag">
-                                    <i-input v-model="detailFormModal.endTime">
-                                    </i-input>
-                                </div>
-                                <div v-else>
-                                    {{detailFormModal.endTime}}
-                                </div>
+                                    {{detailFormModal.payTime}}
                             </form-item>
                         </i-col>
                     </row>
@@ -171,157 +159,50 @@
                     <row>
                         <i-col span="8">
                             <form-item label="总金额">
-                                {{detailFormModal.totalFee}}
-                                <Tooltip max-width="500px" content="总金额=(实付金额:商品支付 + 邮费支付) + 会籍优惠 + 活动优惠 + 金币抵扣 + 优惠券抵扣"
+                                {{detailFormModal.orderFeeYuan}}
+                                <Tooltip max-width="500px" content="扣除优惠前的订单金额"
                                          placement="top">
                                     <Icon type="md-alert"></Icon>
                                 </Tooltip>
                             </form-item>
                         </i-col>
                         <i-col span="8" style="font-weight: bold">
-                            <form-item label="商品支付">
-                                {{detailFormModal.price}}
-                            </form-item>
-                        </i-col>
-                        <i-col span="8" style="font-weight: bold">
-                            <form-item label="邮费支付">
-                                {{detailFormModal.postage}}
+                            <form-item label="支付金额">
+                                {{detailFormModal.payFeeYuan}}
                             </form-item>
                         </i-col>
                     </row>
 
                     <row>
                         <i-col span="8">
-                            <form-item label="会籍">
-                                {{detailFormModal.membershipId}}
+                            <form-item label="创建时间">
+                                {{detailFormModal.created}}
                             </form-item>
                         </i-col>
                         <i-col span="8">
-                            <form-item label="会籍优惠">
-                                {{detailFormModal.membershipPrice}}
-                            </form-item>
-                        </i-col>
-                        <i-col span="8">
-                            <form-item label="活动优惠">
-                                {{detailFormModal.activeDiscountPrice}}
+                            <form-item label="更新时间">
+                                {{detailFormModal.updated}}
                             </form-item>
                         </i-col>
                     </row>
-
-                    <row>
-                        <i-col span="8">
-                            <form-item label="金币抵扣">
-                                {{detailFormModal.discount}}
-                            </form-item>
-                        </i-col>
-                        <i-col span="8">
-                            <form-item label="赠送金币">
-                                {{detailFormModal.goldAmount}}
-                            </form-item>
-                        </i-col>
-                        <i-col span="8">
-                            <form-item label="优惠券抵扣">
-                                {{detailFormModal.couponPrice}} (券id/描述 {{detailFormModal.couponDescribe}})
-                            </form-item>
-                        </i-col>
-                    </row>
-                </Card>
-
-                <Card style="margin-bottom: 20px">
-                    <p slot="title">
-                        <Icon type="ios-list"></Icon>
-                        收货信息
-                    </p>
-
-                    <row>
-                        <i-col span="8">
-                            <form-item label="物流状态">
-                                <div v-if="detailFormModalExtra.editable">
-                                    <i-Select v-model="detailFormModal.expressStatus">
-                                        <i-Option v-for="item in expressStatusList" :value="item.id">{{ item.name }}</i-Option>
-                                    </i-Select>
-                                </div>
-                                <div v-else>
-                                    {{detailFormModal.expressStatusLabel}}
-                                </div>
-                            </form-item>
-                        </i-col>
-                        <i-col span="8" v-if="detailFormModal.showLogistics">
-                            <form-item label="快递公司">
-                                <div v-if="detailFormModalExtra.editable">
-                                    <i-Select v-model="detailFormModal.eid">
-                                        <i-Option v-for="item in store.state.expressList" :value="item.id">{{item.name}}</i-Option>
-                                    </i-Select>
-                                </div>
-                                <div v-else>
-                                    {{detailFormModal.eName}}
-                                </div>
-                            </form-item>
-                        </i-col>
-                        <i-col span="8" v-if="detailFormModal.showLogistics">
-                            <form-item label="快递单号">
-                                <div v-if="detailFormModalExtra.editable">
-                                    <i-input v-model="detailFormModal.logisticsNo">
-                                    </i-input>
-                                </div>
-                                <div v-else>
-                                    {{detailFormModal.logisticsNo}}
-                                </div>
-                            </form-item>
-                        </i-col>
-                    </row>
-
-                    <row>
-                        <i-col span="8">
-                            <form-item label="收货人">
-                                {{detailFormModal.receiveName}}
-                            </form-item>
-                        </i-col>
-                        <i-col span="8">
-                            <form-item label="联系电话">
-                                {{detailFormModal.receivePhone}}
-                            </form-item>
-                        </i-col>
-                        <i-col span="8">
-                            <form-item label="收货地址">
-                                {{detailFormModal.receiveAddress}}
-                            </form-item>
-                        </i-col>
-                    </row>
-                </Card>
-
-                <Card style="margin-bottom: 20px">
-                    <p slot="title">
-                        <Icon type="ios-list"></Icon>
-                        商品信息
-                    </p>
-                    <i-table :columns="detailFormModalExtra.columns" :data="detailFormModal.productList">
-
-                    </i-table>
-                </Card>
-
-                <Card style="margin-bottom: 20px">
-                    <p slot="title">
-                        <Icon type="ios-list"></Icon>
-                        变更记录
-                    </p>
-
-                    <Steps :current="detailFormModalExtra.stepCurrent" direction="vertical">
-                        <Step v-for="item in detailFormModal.recordList" :title="item.uname + ' （ '+ item.time +' ）'"
-                              :content="item.content + ' （ 原因 ： ' +item.comment + ' ）'"></Step>
-                    </Steps>
-
                 </Card>
             </i-form>
 
             <div slot="footer">
 
+<#--
                 <i-button type="error" long :loading="modalLoading" v-if="!detailFormModalExtra.refundAble"
                           @click="goEditOrder">
                     <span v-if="detailFormModalExtra.editable">保存</span>
                     <span v-else>更改</span>
                 </i-button>
+-->
 
+                <row>
+                    <i-button type="info" long :loading="modalLoading" @click="detailModal=false">
+                        <span >确定</span>
+                    </i-button>
+                </row>
                 <row v-if="detailFormModalExtra.refundAble">
                     <i-col span="11">
                         <i-button type="error" long :loading="modalLoading" @click="goEditOrder">
@@ -468,36 +349,37 @@
                     status: null,
                     pageNum: 1
                 },
+                payChannelList: [{
+                    name: '微信',
+                    id: 1
+                },{
+                    name: '支付宝',
+                    id: 2
+                },{
+                    name: '银联',
+                    id: 3
+                }],
                 statusList: [{
-                    id: 1,
-                    name: '待付款'
-                }, {
-                    id: 2,
-                    name: '付款成功'
-                }, {
-                    id: 3,
-                    name: '付款失败'
-                }, {
-                    id: 4,
-                    name: '退款中'
-                }, {
-                    id: 5,
-                    name: '退款成功'
-                }, {
-                    id: 6,
-                    name: '退款失败'
-                }, {
-                    id: 9,
-                    name: '已取消'
-                }, {
-                    id: 10,
-                    name: '超时'
-                }, {
-                    id: 12,
-                    name: '审核中'
-                }, {
-                    id: 13,
-                    name: '审核失败'
+                    name: '待付款',
+                    id: 1
+                },{
+                    name: '已付款',
+                    id: 2
+                },{
+                    name: '申请退款',
+                    id: 3
+                },{
+                    name: '退款审核中',
+                    id: 4
+                },{
+                    name: '退款完成',
+                    id: 5
+                },{
+                    name: '退款失败',
+                    id: 6
+                },{
+                    name: '订单过期',
+                    id: 7
                 }],
                 expressStatusList: [{
                     id: 0,
@@ -520,108 +402,93 @@
                 tableData: [],
                 tableDataCount: 0,
                 tableColumns: [{
-                    title: '单号',
-                    width: 240,
-                    render: function (h, params) {
-                        return h('div', [h('h4', '供应商单号 : ' + (params.row.supplierSeq == null ? '' : params.row.supplierSeq)), h('div', '组单号 : ' + params.row.groupSeq)]);
-                    }
-                }, {
-                    title: '供应商',
+                    title: '本地单号',
                     width: 150,
-                    render: function (h, params) {
-
-                        if (utils.isEmpty(params.row.supplierSeq)) {
-                            return;
-                        }
-
-                        var supplier = store.state.supplierMap[params.row.supplierId];
-
-                        if (supplier == null) {
-                            supplier = {
-                                name: ''
-                            };
-                        }
-                        return h('div', supplier.name);
-                    }
+                    key: 'seq',
+                },{
+                    title: '第三方交易单号',
+                    width: 150,
+                    key: 'outSeq',
                 }, {
-                    title: '名称/来源',
+                    title: '姓名',
+                    width: 120,
+                    key: 'name',
+                }, {
+                    title: '手机号',
+                    width: 120,
+                    key: 'phone',
+                }, {
+                    title: '订单状态',
                     render: function (h, params) {
-                        var count = params.row.count;
-                        var sourceList = [{
-                            name: '微信小程序',
+                        /*var statusList = [{
+                            name: '待付款',
                             id: 1
                         },{
-                            name: '支付宝服务窗',
+                            name: '已付款',
                             id: 2
                         },{
-                            name: 'PC网站',
+                            name: '申请退款',
                             id: 3
                         },{
-                            name: 'WAP网站',
+                            name: '退款审核中',
                             id: 4
                         },{
-                            name: 'APP',
+                            name: '退款完成',
                             id: 5
                         },{
-                             name: '骑士会员',
-                              id: 9
+                             name: '退款失败',
+                              id: 6
                         },{
-                            name: '微信小程序',
-                            id: 10
-                        },{
-                            name: '私域',
-                            id: 12
-                        }];
-                        var source = utils.getItem(sourceList, 'id', params.row.source);
-                        if(!source){
-                            source = {
+                            name: '订单过期',
+                            id: 7
+                        }];*/
+                        var status = utils.getItem(vm.statusList, 'id', params.row.status);
+                        if(!status){
+                            status = {
                                 name: '未知'
                             };
                         }
-                        if (count == 1) {
-                            // return h('div', params.row.title);
-                            return h('div', [
-                                h('div', params.row.title),
-                                h('div', source.name)
-                            ]);
-                        }
-
-                        return h('div', params.row.title + '等' + count + '件商品');
+                        return h('div', status.name);
                     }
                 }, {
-                    title: '状态',
-                    width: 110,
+                    title: '订单来源',
+                    width: 160,
+                    key: 'adtSource',
+
+                }, {
+                    title: '订单价格',
+                    width: 160,
                     render: function (h, params) {
-
-                        if (utils.isEmpty(params.row.supplierSeq)) {
-                            return;
-                        }
-
-                        var status = utils.getItem(vm.statusList, 'id', params.row.status);
-                        var expressStatus = utils.getItem(vm.expressStatusList, 'id', params.row.expressStatus);
-
-                        if (status == null) {
-                            return;
-                        }
-
-                        if (expressStatus == null) {
-                            expressStatus = {
-                                name: '未发货'
+                        return h('div', params.row.orderFee/100);
+                    }
+                },{
+                    title: '支付',
+                    width: 160,
+                    render: function (h, params) {
+                        return h('div', params.row.payFee/100);
+                    }
+                },{
+                    title: '支付渠道',
+                    render: function (h, params) {
+                        /*var payChannelList = [{
+                            name: '微信',
+                            id: 1
+                        },{
+                            name: '支付宝',
+                            id: 2
+                        },{
+                            name: '银联',
+                            id: 3
+                        }];*/
+                        var payChannel = utils.getItem(vm.payChannelList, 'id', params.row.payChannel);
+                        if(!payChannel){
+                            payChannel = {
+                                name: '未知'
                             };
                         }
-
-                        return h('div', [
-                            h('h3', status.name),
-                            h('div', expressStatus.name)
-                        ]);
+                        return h('div', payChannel.name);
                     }
-                }, {
-                    title: '用户信息',
-                    width: 140,
-                    render: function (h, params) {
-                        return h('div', [h('h4', '卡号 : ' + params.row.cardNum), h('div', '用户id : ' + params.row.uid)]);
-                    }
-                }, {
+                },{
                     title: '创建时间',
                     width: 150,
                     key: 'created',
@@ -629,14 +496,15 @@
                 }, {
                     title: '操作',
                     key: 'action',
-                    width: 80,
+                    width: 160,
                     render: function (h, params) {
 
-                        if (utils.isEmpty(params.row.supplierSeq)) {
+                        if (utils.isEmpty(params.row.seq)) {
                             return;
                         }
 
-                        return h('Button', {
+                        return h('div',[
+                            h('Button', {
                             props: {
                                 type: 'primary',
                                 size: 'small'
@@ -646,7 +514,19 @@
                                     vm.goDetail(params);
                                 }
                             }
-                        }, '详情');
+                        }, '详情'),
+                            h('Button', {
+                                props: {
+                                    type: 'warning',
+                                    size: 'small'
+                                },
+                                on: {
+                                    click: function () {
+                                        vm.goRefund(params);
+                                    }
+                                }
+                            }, '退款')
+                        ]);
                     }
                 }],
                 searchLoading: false,
@@ -685,40 +565,18 @@
 
                 detailModal: false,
                 detailFormModal: {
-                    groupSeq: null,
-                    supplierSeq: null,
-                    supplierId: null,
+                    seq: null,
+                    outSeq: null,
+                    name: null,
+                    phone: null,
                     status: null,
-                    statusLabel: null,
-                    userDel: 0,
-                    payChannel: null,
-                    payChannelLabel: null,
-                    tranId: null,
-                    endTime: null,
-                    totalFee: null,
-                    price: null,
-                    postage: null,
-                    membershipId: null,
-                    membershipPrice: null,
-                    activeDiscountPrice: null,
-                    discount: null,
-                    goldAmount: null,
-                    couponPrice: null,
-                    expressStatus: null,
-                    expressStatusLabel: null,
-                    eid: null,
-                    eName: null,
-                    logisticsNo: null,
-                    receiveName: null,
-                    receivePhone: null,
-                    receiveAddress: null,
-                    recordList: [],
-                    productList: [],
-                    edition: 0,
-                    comment: null,
-                    tranFlag: false,
-                    showLogistics: true,
-                    couponDescribe: null
+                    adtSource: null,
+                    orderFee: null,
+                    payFee: null,
+                    Integer: null,
+                    payTime: null,
+                    created: null,
+                    updated: null
                 },
                 detailFormModalExtra: {
                     stepCurrent: 0,
@@ -833,7 +691,7 @@
                         searchForm.endTime = null;
                     }
 
-                    utils.get('${contextPath}/order/listByPage', searchForm, function (result) {
+                    utils.get('${contextPath}/orderInfo/listByPage', searchForm, function (result) {
                         if (result.success) {
                             tableData = result.data.list;
                             tableDataCount = result.data.total;
@@ -1008,90 +866,73 @@
 
                     detailFormModalExtra.editable = false;
 
-                    loadDetail(params.row.supplierSeq, params.row.uid);
+                    loadDetail(params.row);
                 }
             },
-            loadDetail: function (supplierSeq, uid) {
+            loadDetail: function (data) {
                 with (this) {
                     modalLoading = true;
-                    utils.post('${contextPath}/order/orderDetail', {
-                        supplierSeq: supplierSeq,
-                        uid: uid
-                    }, function (result) {
-                        if (result.success) {
 
-                            detailFormModal = result.data;
+                    detailFormModal = data;
 
-                            detailFormModal.comment = null;
+                    // detailFormModal.comment = null;
 
-                            if (detailFormModal.status == 2) {
-                                detailFormModalExtra.refundAble = true;
-                            }
-                            else {
-                                detailFormModalExtra.refundAble = false;
-                            }
+                    /*if (detailFormModal.status == 2) {
+                        detailFormModalExtra.refundAble = true;
+                    }
+                    else {
+                        detailFormModalExtra.refundAble = false;
+                    }
 
-                            if (detailFormModal.status == 10 || detailFormModal.status == 13) {
-                                detailFormModal.tranFlag = true;
-                            } else {
-                                detailFormModal.tranFlag = false;
-                            }
+                    if (detailFormModal.status == 10 || detailFormModal.status == 13) {
+                        detailFormModal.tranFlag = true;
+                    } else {
+                        detailFormModal.tranFlag = false;
+                    }
 
-                            detailFormModal.recordList.forEach(function (t, number) {
-                                t.time = utils.dateFormat(t.created);
-                            });
-
-                            detailFormModalExtra.stepCurrent = detailFormModal.recordList.length - 1;
-
-                            var expressStatus = utils.getItem(expressStatusList, 'id', detailFormModal.expressStatus);
-
-                            if (expressStatus == null) {
-                                expressStatus = {
-                                    name: '未发货'
-                                };
-                            }
-
-                            detailFormModal.expressStatusLabel = expressStatus.name;
-
-                            var supplier = store.state.supplierMap[detailFormModal.supplierId];
-
-                            if (supplier == null) {
-                                supplier = {
-                                    name: ''
-                                };
-                            }
-
-                            detailFormModal.supplierId = supplier.name;
-
-                            var status = utils.getItem(statusList, 'id', detailFormModal.status);
-
-                            detailFormModal.statusLabel = status.name;
-
-                            var payChannel = store.state.payChannelMap[detailFormModal.payChannel];
-
-                            if (payChannel == null) {
-                                payChannel = {
-                                    label: ''
-                                };
-                            }
-
-                            detailFormModal.payChannelLabel = payChannel.label;
-
-                            var membership = utils.getItem(memberShipList, 'id', detailFormModal.membershipId);
-
-                            if (membership == null) {
-                                membership = {
-                                    name: '总裁'
-                                };
-                            }
-
-                            detailFormModal.membershipId = membership.name;
-
-                            detailFormModal.endTime = utils.dateFormat(detailFormModal.endTime);
-
-                            modalLoading = false;
-                        }
+                    detailFormModal.recordList.forEach(function (t, number) {
+                        t.time = utils.dateFormat(t.created);
                     });
+
+                    detailFormModalExtra.stepCurrent = detailFormModal.recordList.length - 1;
+
+                    var expressStatus = utils.getItem(expressStatusList, 'id', detailFormModal.expressStatus);
+
+                    if (expressStatus == null) {
+                        expressStatus = {
+                            name: '未发货'
+                        };
+                    }
+
+                    detailFormModal.expressStatusLabel = expressStatus.name;
+
+                    var supplier = store.state.supplierMap[detailFormModal.supplierId];
+
+                    if (supplier == null) {
+                        supplier = {
+                            name: ''
+                        };
+                    }
+
+                    detailFormModal.supplierId = supplier.name;*/
+
+                    var status = utils.getItem(statusList, 'id', detailFormModal.status);
+                    detailFormModal.statusLabel = status.name;
+
+                    var payChannel = utils.getItem(payChannelList, 'id', detailFormModal.status);
+                    if (!payChannel){
+                        detailFormModal.payChannelLabel = payChannel.name;
+                    }else {
+                        detailFormModal.payChannelLabel = '';
+                    }
+
+                    detailFormModal.orderFeeYuan = detailFormModal.orderFee/100;
+                    detailFormModal.payFeeYuan = detailFormModal.payFee/100;
+                    detailFormModal.payTime = utils.dateFormat(detailFormModal.payTime);
+                    detailFormModal.created = utils.dateFormat(detailFormModal.created);
+                    detailFormModal.updated = utils.dateFormat(detailFormModal.updated);
+
+                    modalLoading = false;
                 }
             }
         }

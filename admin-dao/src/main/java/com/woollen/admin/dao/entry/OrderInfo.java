@@ -74,7 +74,7 @@ public class OrderInfo extends Model<OrderInfo> {
     /**
      * 支付时间
      */
-    private Integer payTime;
+    private Long payTime;
 
     /**
      * 创建时间

@@ -1,5 +1,6 @@
 package com.woollen.admin.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.woollen.admin.base.BaseController;
 import com.woollen.admin.dao.entry.OrderInfo;
 import com.woollen.admin.response.Result;
@@ -27,11 +28,9 @@ public class OrderInfoController extends BaseController {
     @Autowired
     private OrderInfoService orderInfoService;
 
-    @GetMapping("list")
+    @GetMapping("listByPage")
     public Result list(OrderInfoRequest request){
-        OrderInfo orderInfo = new OrderInfo();
-        BeanUtils.copyProperties(request,orderInfo);
-        List<OrderInfo> list = orderInfoService.getOrderInfoList(request);
-        return success(list);
+        PageInfo pageInfo = orderInfoService.getOrderInfoList(request);
+        return success(pageInfo);
     }
 }

@@ -1,6 +1,8 @@
 package com.woollen.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.woollen.admin.dao.entry.OrderInfo;
 import com.woollen.admin.dao.mapper.OrderInfoMapper;
 import com.woollen.admin.service.OrderInfoService;
@@ -25,7 +27,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     private OrderInfoMapper orderInfoMapper;
 
     @Override
-    public List<OrderInfo> getOrderInfoList(OrderInfoRequest request) {
+    public PageInfo getOrderInfoList(OrderInfoRequest request) {
 
         QueryWrapper<OrderInfo> wrapper = new QueryWrapper<>();
 
@@ -53,7 +55,9 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         if (request.getBegin() != null && request.getEnd() != null){
             wrapper.between("pay_time",request.getBegin(),request.getEnd());
         }
+        PageHelper.startPage(request.getPageNum(),request.getPageSize());
         List<OrderInfo> orderInfos = orderInfoMapper.selectList(wrapper);
-        return orderInfos;
+        PageInfo pageInfo = new PageInfo(orderInfos);
+        return pageInfo;
     }
 }

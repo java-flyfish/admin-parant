@@ -83,7 +83,7 @@ var store = new Vuex.Store({
         }
     },
     actions: {
-        loadAppList: function (context) {
+        /*loadAppList: function (context) {
             $.get(store.contextPath + '/appInfo/listAll', {
                 type: 1,
                 isEnable: true
@@ -98,8 +98,8 @@ var store = new Vuex.Store({
                     context.commit('initAppMap', map);
                 }
             });
-        },
-        loadCategoryList: function (context) {
+        },*/
+        /*loadCategoryList: function (context) {
             $.get(store.contextPath + '/category/listTree', {}, function (result) {
                 if (result.success) {
 
@@ -126,8 +126,8 @@ var store = new Vuex.Store({
                     context.commit('initCategoryList', result.data);
                 }
             });
-        },
-        loadSupplierList: function (context) {
+        },*/
+        /*loadSupplierList: function (context) {
             $.get(store.contextPath + '/supplier/listAll', {}, function (result) {
                 if (result.success) {
 
@@ -139,8 +139,8 @@ var store = new Vuex.Store({
                     context.commit('initSupplierMap', map);
                 }
             });
-        },
-        loadBuyerList: function (context) {
+        },*/
+        /*loadBuyerList: function (context) {
             $.get(store.contextPath + '/buyer/listAll', {}, function (result) {
                 if (result.success) {
                     context.commit('initBuyerList', result.data);
@@ -152,8 +152,8 @@ var store = new Vuex.Store({
 
                 }
             });
-        },
-        loadExpressList: function (context) {
+        },*/
+        /*loadExpressList: function (context) {
             $.get(store.contextPath + '/express/listAll', {}, function (result) {
                 if (result.success) {
 
@@ -165,8 +165,8 @@ var store = new Vuex.Store({
                     context.commit('initExpressMap', map);
                 }
             });
-        },
-        loadProductDicList: function (context) {
+        },*/
+        /*loadProductDicList: function (context) {
             $.get(store.contextPath + '/productDic/listTree', {}, function (result) {
                 if (result.success) {
 
@@ -196,8 +196,8 @@ var store = new Vuex.Store({
 
                 }
             });
-        },
-        loadPostageTempletList: function (context) {
+        },*/
+        /*loadPostageTempletList: function (context) {
             $.get(store.contextPath + '/postageTemplet/listAll', {}, function (result) {
                 if (result.success) {
 
@@ -231,17 +231,17 @@ var store = new Vuex.Store({
                     context.commit('initSystemCategoryList', result.data);
                 }
             });
-        },
+        },*/
         init: function (context) {
-            store.dispatch('loadAppList');
-            store.dispatch('loadCategoryList');
-            store.dispatch('loadSupplierList');
-            store.dispatch('loadBuyerList');
-            store.dispatch('loadExpressList');
-            store.dispatch('loadProductDicList');
-            store.dispatch('loadPostageTempletList');
-            store.dispatch('loadPayChannelList');
-            store.dispatch('loadSystemCategoryList');
+            // store.dispatch('loadAppList');
+            // store.dispatch('loadCategoryList');
+            // store.dispatch('loadSupplierList');
+            // store.dispatch('loadBuyerList');
+            // store.dispatch('loadExpressList');
+            // store.dispatch('loadProductDicList');
+            // store.dispatch('loadPostageTempletList');
+            // store.dispatch('loadPayChannelList');
+            // store.dispatch('loadSystemCategoryList');
         }
     }
 });

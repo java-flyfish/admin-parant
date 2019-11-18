@@ -1,9 +1,8 @@
 package com.woollen.admin.service;
 
-import com.woollen.admin.dao.entry.OrderInfo;
+import com.github.pagehelper.PageInfo;
 import com.woollen.admin.request.OrderInfoRequest;
 
-import java.util.List;
 
 /**
  * @Info:
@@ -13,5 +12,5 @@ import java.util.List;
  * @Version: V1.0
  **/
 public interface OrderInfoService {
-    List<OrderInfo> getOrderInfoList(OrderInfoRequest request);
+    PageInfo getOrderInfoList(OrderInfoRequest request);
 }

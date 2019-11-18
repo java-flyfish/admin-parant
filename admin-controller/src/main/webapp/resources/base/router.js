@@ -36,11 +36,11 @@ var router = new VueRouter({
         path: '/memberShip',
         name: 'memberShip',
         component: memberShip
-    }, {
+    }*/, {
         path: '/order',
         name: 'order',
         component: order
-    }, {
+    }/*, {
         path: '/refund',
         name: 'refund',
         component: refund

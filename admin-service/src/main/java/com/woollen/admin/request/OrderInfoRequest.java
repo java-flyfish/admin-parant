@@ -55,4 +55,11 @@ public class OrderInfoRequest {
      * 支付时间结束
      */
     private Long end;
+
+    /**
+     * 支付时间结束
+     */
+    private Integer pageNum = 1;
+
+    private Integer pageSize = 10;
 }
