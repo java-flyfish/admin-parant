@@ -1,6 +1,7 @@
 package com.woollen.admin.dao.entry;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
@@ -58,6 +59,12 @@ public class SysRole extends Model<SysRole> {
      * 关联资源ids
      */
     private String relates;
+
+    @TableField(exist = false)
+    private Integer pageNum;
+
+    @TableField(exist = false)
+    private Integer pageSize;
 
 
     @Override

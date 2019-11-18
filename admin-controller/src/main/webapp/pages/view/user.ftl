@@ -288,7 +288,7 @@
                         searchForm.pageNum = pageNum;
                     }
 
-                    utils.get('${contextPath}/managerUser/listByPage', searchForm, function (result) {
+                    utils.get('${contextPath}/sysUser/listByPage', searchForm, function (result) {
                         if (result.success) {
                             tableData = result.data.list;
                             tableDataCount = result.data.total;

@@ -1,6 +1,9 @@
 package com.woollen.admin.service;
 
 import com.woollen.admin.dao.entry.SysUser;
+import org.springframework.data.domain.Example;
+
+import java.util.List;
 
 /**
  * @Info:
@@ -11,4 +14,8 @@ import com.woollen.admin.dao.entry.SysUser;
  **/
 public interface SysUserService {
     SysUser selectNamaAndPassword(String name,String password);
+
+    List<SysUser> selectByCondition(String search, Integer pageNum, Integer pageSize);
+
+    Integer deleteById(Integer id);
 }

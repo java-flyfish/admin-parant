@@ -1,5 +1,6 @@
 package com.woollen.admin.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.woollen.admin.annocation.NoLoginValidate;
 import com.woollen.admin.base.BaseController;
 import com.woollen.admin.dao.entry.SysUser;
@@ -11,14 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 
 
 /**
@@ -58,4 +57,38 @@ public class SysUserController extends BaseController {
         request.getSession().removeAttribute("sysUser");
         return success("成功退出登陆！");
     }
+
+    @RequestMapping(value = "/listByPage", method = RequestMethod.GET)
+    @ResponseBody
+    public Result listByPage(HttpServletRequest request, HttpServletResponse response,
+                             @RequestParam Integer pageNum,
+                             @RequestParam(required = false) Integer pageSize,
+                             @RequestParam(required = false) String search) throws Exception {
+
+        List<SysUser> userList = sysUserService.selectByCondition(search, pageNum, pageSize);
+
+
+        return success(new PageInfo<>(userList));
+    }
+
+    @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    public Result modify(HttpServletRequest request, HttpServletResponse response, @RequestBody SysUser sysUser) throws Exception {
+
+        if (sysUser.getId() == null) {
+            sysUser.insert();
+        } else {
+            sysUser.updateById();
+        }
+
+        return success(true);
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public Result delete(HttpServletRequest request, HttpServletResponse response, @RequestParam Integer id) throws Exception {
+
+        Integer num = sysUserService.deleteById(id);
+
+        return success(true);
+    }
+
 }
