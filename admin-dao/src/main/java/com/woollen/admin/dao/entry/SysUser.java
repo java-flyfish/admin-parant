@@ -15,7 +15,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author weiyang
- * @since 2019-10-12
+ * @since 2019-11-19
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -27,13 +27,40 @@ public class SysUser extends Model<SysUser> {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    /**
+     * 姓名
+     */
     private String name;
 
+    /**
+     * 昵称
+     */
+    private String nickName;
+
+    /**
+     * 邮箱
+     */
+    private String email;
+
+    /**
+     * 密码
+     */
     private String password;
 
+    /**
+     * 手机号
+     */
     private String phone;
 
+    /**
+     * 角色id
+     */
     private Integer roleId;
+
+    /**
+     * 是否开启
+     */
+    private Boolean isEnable;
 
     /**
      * 创建时间

@@ -42,7 +42,7 @@ public class RefundOrder extends Model<RefundOrder> {
     private String refundSeq;
 
     /**
-     * 3:申请退款，4:退款审核中，5:退款完成，6:退款失败
+     * 1:申请退款，2:退款审核中，3:退款完成，4:退款失败
      */
     private Integer status;
 
@@ -65,6 +65,11 @@ public class RefundOrder extends Model<RefundOrder> {
      * 退款完成时间
      */
     private Long refundTime;
+
+    /**
+     * 退款描述
+     */
+    private String comment;
 
     /**
      * 创建时间，即申请退款实际

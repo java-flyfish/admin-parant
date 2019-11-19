@@ -203,7 +203,7 @@
                         <span >确定</span>
                     </i-button>
                 </row>
-                <row v-if="detailFormModalExtra.refundAble">
+                <#--<row v-if="detailFormModalExtra.refundAble">
                     <i-col span="11">
                         <i-button type="error" long :loading="modalLoading" @click="goEditOrder">
                             <span v-if="detailFormModalExtra.editable">保存</span>
@@ -216,7 +216,7 @@
                             退款
                         </i-button>
                     </i-col>
-                </row>
+                </row>-->
 
             </div>
         </modal>
@@ -227,54 +227,29 @@
                :styles="{top: '20px'}">
             <i-form ref="formModal" :model="formModal" :rules="ruleModal" label-width="80">
 
-                <form-item label="供应商">
-                    {{detailFormModal.supplierId}}
+                <form-item label="订单号">
+                    {{formModal.seq}}
                 </form-item>
 
                 <row>
                     <i-col span="8">
-                        <form-item label="退支付金额">
-                            {{detailFormModal.price}}
-                        </form-item>
-                    </i-col>
-                    <i-col span="8">
-
-                        <form-item label="退邮费">
-                            {{formModal.postage}}
-                            <Tooltip :content="formModal.tip" placement="top">
-                                <Icon type="md-alert"></Icon>
-                            </Tooltip>
-                        </form-item>
-                    </i-col>
-                    <i-col span="8">
-                        <form-item label="合计退款" style="color:crimson">
-                            {{formModal.totalRefund}}
+                        <form-item label="退款金额">
+                            <#--{{formModal.refundFeeYuan}}-->
+                            <i-input type="string" v-model="formModal.refundFeeYuan">
+                            </i-input>
                         </form-item>
                     </i-col>
                 </row>
 
-                <row>
-                    <i-col span="8">
-                        <form-item label="退自由币">
-                            {{detailFormModal.discount}}
-                        </form-item>
-                    </i-col>
-                    <i-col span="8">
-                        <form-item label="收回自由币">
-                            {{detailFormModal.goldAmount}}
-                        </form-item>
-                    </i-col>
-                </row>
-
-                <form-item prop="type" label="退款类型">
+                <#--<form-item prop="type" label="退款类型">
                     <i-Select v-model="formModal.type">
                         <i-Option value="0">退款</i-Option>
                         <i-Option value="1" disabled>退货</i-Option>
                         <i-Option value="2">退货退款</i-Option>
                     </i-Select>
-                </form-item>
+                </form-item>-->
 
-                <form-item prop="describeText" label="退款描述">
+                <#--<form-item prop="describeText" label="退款描述">
                     <i-Select v-model="formModal.describeText">
                         <i-Option value="30天无理由退货">30天无理由退货</i-Option>
                         <i-Option value="尺寸拍错/不喜欢/效果不好">尺寸拍错/不喜欢/效果不好</i-Option>
@@ -288,7 +263,7 @@
                         <i-Option value="商品少件/破损/污渍等">商品少件/破损/污渍等</i-Option>
                         <i-Option value="其他">其他</i-Option>
                     </i-Select>
-                </form-item>
+                </form-item>-->
 
                 <form-item prop="comment" label="退款理由">
                     <i-input type="textarea" :autosize="{minRows: 2,maxRows: 5}"
@@ -403,11 +378,11 @@
                 tableDataCount: 0,
                 tableColumns: [{
                     title: '本地单号',
-                    width: 150,
+                    width: 200,
                     key: 'seq',
                 },{
                     title: '第三方交易单号',
-                    width: 150,
+                    width: 200,
                     key: 'outSeq',
                 }, {
                     title: '姓名',
@@ -419,29 +394,8 @@
                     key: 'phone',
                 }, {
                     title: '订单状态',
+                    width: 120,
                     render: function (h, params) {
-                        /*var statusList = [{
-                            name: '待付款',
-                            id: 1
-                        },{
-                            name: '已付款',
-                            id: 2
-                        },{
-                            name: '申请退款',
-                            id: 3
-                        },{
-                            name: '退款审核中',
-                            id: 4
-                        },{
-                            name: '退款完成',
-                            id: 5
-                        },{
-                             name: '退款失败',
-                              id: 6
-                        },{
-                            name: '订单过期',
-                            id: 7
-                        }];*/
                         var status = utils.getItem(vm.statusList, 'id', params.row.status);
                         if(!status){
                             status = {
@@ -457,29 +411,20 @@
 
                 }, {
                     title: '订单价格',
-                    width: 160,
+                    width: 100,
                     render: function (h, params) {
                         return h('div', params.row.orderFee/100);
                     }
                 },{
-                    title: '支付',
-                    width: 160,
+                    title: '实际支付',
+                    width: 100,
                     render: function (h, params) {
                         return h('div', params.row.payFee/100);
                     }
                 },{
                     title: '支付渠道',
+                    width: 100,
                     render: function (h, params) {
-                        /*var payChannelList = [{
-                            name: '微信',
-                            id: 1
-                        },{
-                            name: '支付宝',
-                            id: 2
-                        },{
-                            name: '银联',
-                            id: 3
-                        }];*/
                         var payChannel = utils.getItem(vm.payChannelList, 'id', params.row.payChannel);
                         if(!payChannel){
                             payChannel = {
@@ -515,6 +460,7 @@
                                 }
                             }
                         }, '详情'),
+                            params.row.status == 2?(
                             h('Button', {
                                 props: {
                                     type: 'warning',
@@ -522,10 +468,10 @@
                                 },
                                 on: {
                                     click: function () {
-                                        vm.goRefund(params);
+                                        vm.goRefund(params.row);
                                     }
                                 }
-                            }, '退款')
+                            }, '退款')):''
                         ]);
                     }
                 }],
@@ -535,17 +481,13 @@
                 modalTitle: '发起退款',
                 modalLoading: false,
                 formModal: {
-                    type: null,
-                    amt: null,
-                    describeText: null,
+                    seq: null,
+                    refundFee: null,
                     comment: null
                 },
                 ruleModal: {
-                    type: [
-                        {required: true, message: '请选择退款类型', trigger: 'blur'}
-                    ],
-                    describeText: [
-                        {required: true, message: '请选择退款描述', trigger: 'blur'}
+                    comment: [
+                        {required: true, message: '请输入退款描述', trigger: 'blur'}
                     ]
                 },
 
@@ -708,11 +650,22 @@
                     $refs[name].validate(function (valid) {
                         if (valid) {
 
+                            if (formModal.refundFeeYuan * 100 > formModal.refundFee){
+                                $Message.error('实际退款金额不能大于支付金额');
+                                return
+                            }
+
+                            if (formModal.comment.length>50){
+                                $Message.error('退款描述请小于50个字');
+                                return
+                            }
+
+                            formModal.refundFee = formModal.refundFeeYuan * 100;
                             utils.post('${contextPath}/orderRefund/createRefund', formModal, function (result) {
                                 if (result.success) {
                                     modal = false;
                                     $Message.success('操作成功');
-                                    loadDetail(detailFormModal.supplierSeq, detailFormModal.uid);
+                                    // loadDetail(detailFormModal.supplierSeq, detailFormModal.uid);
                                     listByPage();
                                 }
                                 else {
@@ -723,43 +676,19 @@
                     });
                 }
             },
-            goRefund: function (params) {
+            goRefund: function (data) {
                 with (this) {
-                    var expressStatus = detailFormModal.expressStatus;
 
-                    var type = null;
-
-                    if (expressStatus == null || expressStatus == 0 || expressStatus == 3) {
-                        type = '0';
-                    }
-
-                    if (expressStatus == 2 || expressStatus == 4) {
-                        type = '2';
-                    }
-
-                    if (type == null) {
-                        $Message.error('订单为已发货状态，不能退款');
+                    if (data.status != 2) {
+                        $Message.error('订单状态不能退款');
                         return;
                     }
 
-                    var tip = '支付邮费:' + detailFormModal.postage;
-                    var postage = detailFormModal.postage;
-                    if (expressStatus != null && expressStatus != 0) {
-                        postage = 0;
-                        tip = '该订单已发货，不退邮费';
-                    }
-
-                    var totalRefund = (Number(detailFormModal.price + postage)).toFixed(2);
-
                     formModal = {
-                        supplierSeq: detailFormModal.supplierSeq,
-                        uid: detailFormModal.uid,
-                        type: type,
-                        describeText: null,
-                        comment: null,
-                        totalRefund: totalRefund,
-                        postage: postage,
-                        tip: tip
+                        seq: data.seq,
+                        refundFee: data.payFee,
+                        refundFeeYuan: data.payFee/100,
+                        comment: null
                     };
 
                     modal = true;
@@ -864,7 +793,7 @@
                     modalLoading = true;
                     detailModal = true;
 
-                    detailFormModalExtra.editable = false;
+                    // detailFormModalExtra.editable = false;
 
                     loadDetail(params.row);
                 }
@@ -920,7 +849,7 @@
                     detailFormModal.statusLabel = status.name;
 
                     var payChannel = utils.getItem(payChannelList, 'id', detailFormModal.status);
-                    if (!payChannel){
+                    if (payChannel){
                         detailFormModal.payChannelLabel = payChannel.name;
                     }else {
                         detailFormModal.payChannelLabel = '';

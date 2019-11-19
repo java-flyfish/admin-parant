@@ -211,13 +211,13 @@
                 modalTitle: '添加用户',
                 modalLoading: false,
                 formModal: {
+                    isEnable: true,
+                    roleId: null,
                     name: null,
                     nickName: null,
-                    roleId: null,
                     password: null,
-                    phone: null,
                     email: null,
-                    isEnable: true
+                    phone: null
                 },
                 ruleModal: {
                     email: [
@@ -271,11 +271,11 @@
                         }
                     });
 
-                    utils.get('${contextPath}/managerUser/getThirdDeptList', {}, function (result) {
+                   /* utils.get('${contextPath}/managerUser/getThirdDeptList', {}, function (result) {
                         if (result.success) {
                             thirdDepartmentList = result.data;
                         }
-                    });
+                    });*/
 
                     listByPage(1);
                 }
@@ -304,7 +304,7 @@
                 with (this) {
                     $refs[name].validate(function (valid) {
                         if (valid) {
-                            utils.postJson('${contextPath}/managerUser/modify', formModal, function (result) {
+                            utils.postJson('${contextPath}/sysUser/modify', formModal, function (result) {
                                 if (result.success) {
                                     modal = false;
                                     $Message.success('操作成功');
@@ -343,8 +343,39 @@
                 }
             },
             modifyUser: function (index) {
-
                 with (this) {
+                    formModal = {
+                        id: null,
+                        isEnable: true,
+                        roleId: null,
+                        name: null,
+                        nickName: null,
+                        password: null,
+                        email: null,
+                        phone: null
+                    };
+
+                    thirdEdit = false;
+
+                    if (index == -1) {
+                        modalTitle = '添加用户';
+                    }
+                    else {
+
+                        thirdEdit = true;
+
+                        var currentRow = tableData[index];
+
+                        modalTitle = '修改用户';
+
+                        utils.copyModel(currentRow, formModal);
+
+                        formModal.id = currentRow.id;
+                    }
+
+                    modal = true;
+                }
+                /*with (this) {
                     thirdFormModal = {
                         isEnable: true,
                         roleId: null,
@@ -372,7 +403,7 @@
                     }
 
                     thirdModal = true;
-                }
+                }*/
 
             },
             thirdDeptChange: function (item) {

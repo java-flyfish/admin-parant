@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -51,10 +52,15 @@ public class SysUserController extends BaseController {
         return "/";
     }
 
-    @PostMapping("loginOut")
-    public Result loginOut(HttpServletRequest request){
+    @GetMapping("logout")
+    public Result loginOut(HttpServletRequest request,HttpServletResponse response){
 
         request.getSession().removeAttribute("sysUser");
+        try {
+            response.sendRedirect("/");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return success("成功退出登陆！");
     }
 
@@ -72,6 +78,7 @@ public class SysUserController extends BaseController {
     }
 
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    @ResponseBody
     public Result modify(HttpServletRequest request, HttpServletResponse response, @RequestBody SysUser sysUser) throws Exception {
 
         if (sysUser.getId() == null) {

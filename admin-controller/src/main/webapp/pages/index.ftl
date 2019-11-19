@@ -21,7 +21,7 @@
 
                         <Menu-Item name="3-1">
                             <Icon type="md-power"></Icon>
-                            退出商城
+                            退出系统
                         </Menu-Item>
 
                     </Submenu>
@@ -150,10 +150,10 @@
                             title: '提示',
                             content: '<p>登录超时</p>',
                             onOk: function () {
-                                window.location = '${contextPath}/logout';
+                                window.location = '${contextPath}/sysUser/logout';
                             },
                             onCancel: function () {
-                                window.location = '${contextPath}/logout';
+                                window.location = '${contextPath}/sysUser/logout';
                             }
                         });
                     }
@@ -182,7 +182,7 @@
                         //window.open('http://168.bookuu.com/');
                         break;
                     case '3-1':
-                        window.location = '${contextPath}/logout';
+                        window.location = '${contextPath}/sysUser/logout';
                         break;
                     default:
                         break;

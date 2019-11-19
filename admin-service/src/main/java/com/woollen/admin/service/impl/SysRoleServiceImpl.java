@@ -69,7 +69,6 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     public Boolean insert(SysRole sysRole) {
-        sysRole.insert();
         return sysRole.insert();
     }
 }
