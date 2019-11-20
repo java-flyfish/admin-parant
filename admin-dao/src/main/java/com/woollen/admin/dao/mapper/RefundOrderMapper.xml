@@ -13,6 +13,10 @@
         <result column="pay_fee" property="payFee" />
         <result column="pay_channel" property="payChannel" />
         <result column="refund_time" property="refundTime" />
+        <result column="apply_name" property="applyName" />
+        <result column="check_name" property="checkName" />
+        <result column="comment" property="comment" />
+        <result column="reason" property="reason" />
         <result column="created" property="created" />
         <result column="updated" property="updated" />
     </resultMap>

@@ -67,9 +67,24 @@ public class RefundOrder extends Model<RefundOrder> {
     private Long refundTime;
 
     /**
+     * 申请人
+     */
+    private String applyName;
+
+    /**
+     * 审核人
+     */
+    private String checkName;
+
+    /**
      * 退款描述
      */
     private String comment;
+
+    /**
+     * 退款拒绝
+     */
+    private String reason;
 
     /**
      * 创建时间，即申请退款实际

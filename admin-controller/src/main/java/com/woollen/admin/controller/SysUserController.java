@@ -91,6 +91,7 @@ public class SysUserController extends BaseController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ResponseBody
     public Result delete(HttpServletRequest request, HttpServletResponse response, @RequestParam Integer id) throws Exception {
 
         Integer num = sysUserService.deleteById(id);

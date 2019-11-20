@@ -14,4 +14,5 @@ public class RefundOrderRequest {
     private String seq;
     private Long refundFee;
     private String comment;
+    private String applyName;
 }

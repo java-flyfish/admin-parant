@@ -326,7 +326,7 @@
                         content: '确认删除',
                         onOk: function () {
                             {
-                                utils.post('${contextPath}/managerUser/delete', {
+                                utils.post('${contextPath}/sysUser/delete', {
                                     id: tableData[index].id
                                 }, function (result) {
                                     if (result.success) {

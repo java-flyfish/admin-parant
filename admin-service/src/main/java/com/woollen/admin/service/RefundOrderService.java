@@ -1,6 +1,11 @@
 package com.woollen.admin.service;
 
-import com.woollen.admin.request.RefundOrderRequest; /**
+import com.github.pagehelper.PageInfo;
+import com.woollen.admin.request.DoRefundRequest;
+import com.woollen.admin.request.RefundOrderRequest;
+import com.woollen.admin.request.RefundSearchRequest;
+
+/**
  * @Info:
  * @ClassName: RefundOrder
  * @Author: weiyang
@@ -9,4 +14,8 @@ import com.woollen.admin.request.RefundOrderRequest; /**
  **/
 public interface RefundOrderService {
     Boolean createRefund(RefundOrderRequest refundOrderRequest);
+
+    PageInfo getRefundOrderList(RefundSearchRequest request);
+
+    Boolean doRefund(DoRefundRequest request);
 }

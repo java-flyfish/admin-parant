@@ -6,26 +6,19 @@
                         @submit.native.prevent>
 
                     <form-item>
-                        <i-input clearable type="text" v-model="searchForm.seqSearch" placeholder="搜索供应商单号"
+                        <i-input clearable type="text" v-model="searchForm.seq" placeholder="搜索本地单号"
+                                 @on-enter="listByPage(1)">
+                        </i-input>
+                    </form-item>
+                    <form-item>
+                        <i-input clearable type="text" v-model="searchForm.refundSeq" placeholder="搜索退款单号"
                                  @on-enter="listByPage(1)">
                         </i-input>
                     </form-item>
 
-                <#--<form-item>-->
-                <#--<i-input clearable type="text" v-model="searchForm.title" placeholder="搜索商品名称"-->
-                <#--@on-enter="listByPage(1)">-->
-                <#--</i-input>-->
-                <#--</form-item>-->
-
                     <form-item>
                         <Date-Picker type="daterange" v-model="searchForm.dateRange" placeholder="请选择申请退款时间"
                                      style="width:180px"></Date-Picker>
-                    </form-item>
-
-                    <form-item>
-                        <i-Select clearable v-model="searchForm.type" placeholder="请选择类型" style="width: 100px">
-                            <i-Option v-for="item in typeList" :value="item.id">{{ item.name }}</i-Option>
-                        </i-Select>
                     </form-item>
 
                     <form-item>
@@ -42,10 +35,10 @@
                         </i-Button>
                     </form-item>
 
-                    <form-item>
+                    <#--<form-item>
                         <i-Button type="success" shape="circle" icon="ios-cloud-upload-outline" @click="exportExcel">导出
                         </i-Button>
-                    </form-item>
+                    </form-item>-->
                 </i-form>
             </i-Header>
             <i-Content class="layout-body-content">
@@ -73,19 +66,19 @@
 
                     <row>
                         <i-col span="8">
-                            <form-item label="供应商单号">
-                                {{detailFormModal.supplierSeq}}
+                            <form-item label="本地单号">
+                                {{detailFormModal.seq}}
                             </form-item>
                         </i-col>
                         <i-col span="8">
-                            <form-item label="供应商">
-                                {{detailFormModal.supplierId}}
+                            <form-item label="交易单号">
+                                {{detailFormModal.outSeq}}
                             </form-item>
                         </i-col>
 
                         <i-col span="8">
-                            <form-item label="退款类型">
-                                {{detailFormModal.typeLabel}}
+                            <form-item label="退款单号">
+                                {{detailFormModal.refundSeq}}
                             </form-item>
                         </i-col>
                     </row>
@@ -96,126 +89,40 @@
                                 {{detailFormModal.statusLabel}}
                             </form-item>
                         </i-col>
-
                         <i-col span="8">
-                            <form-item label="物流状态">
-                                {{detailFormModal.expressStatusLabel}}
+                            <form-item label="退款金额">
+                                {{detailFormModal.refundFee}}
                             </form-item>
                         </i-col>
 
+                        <i-col span="8">
+                            <form-item label="支付金额">
+                                {{detailFormModal.payFee}}
+                            </form-item>
+                        </i-col>
+
+                    </row>
+                    <row>
                         <i-col span="8">
                             <form-item label="支付渠道">
                                 {{detailFormModal.payChannelLabel}}
                             </form-item>
                         </i-col>
-                    </row>
 
-                    <row>
                         <i-col span="8">
-                            <form-item label="支付时间">
-                                {{detailFormModal.payTime}}
+                            <form-item label="申请时间">
+                                {{detailFormModal.created}}
                             </form-item>
                         </i-col>
-
                         <i-col span="8">
-                            <form-item label="退款描述">
-                                {{detailFormModal.describeText}}
-                            </form-item>
-                        </i-col>
-
-                        <i-col span="8">
-                            <form-item label="退款理由">
-                                {{detailFormModal.comment}}
+                            <form-item label="退款时间">
+                                {{detailFormModal.refundTime}}
                             </form-item>
                         </i-col>
                     </row>
                 </Card>
 
-                <Card style="margin-bottom: 20px">
-                    <p slot="title">
-                        <Icon type="ios-list"></Icon>
-                        金额信息
-                    </p>
-
-                    <row>
-                        <i-col span="8">
-                            <form-item label="退支付金额">
-                                {{detailFormModal.amt}}
-                            </form-item>
-                        </i-col>
-                        <i-col span="8">
-                            <form-item label="退邮费">
-                                {{detailFormModal.postage}}
-                            </form-item>
-                        </i-col>
-                        <i-col span="8">
-                            <form-item label="合计退款" style="color:crimson">
-                                {{detailFormModal.totalRefund}}
-                            </form-item>
-                        </i-col>
-                    </row>
-
-                    <row>
-                        <i-col span="8">
-                            <form-item label="退金币">
-                                {{detailFormModal.discount}}
-                            </form-item>
-                        </i-col>
-                        <i-col span="8">
-                            <form-item label="收回金币">
-                                {{detailFormModal.goldAmount}}
-                            </form-item>
-                        </i-col>
-
-                    </row>
-                </Card>
-
-                <Card style="margin-bottom: 20px">
-                    <p slot="title">
-                        <Icon type="ios-list"></Icon>
-                        商品信息
-                    </p>
-                    <i-table :columns="detailFormModalExtra.columns" :data="detailFormModal.productList">
-
-                    </i-table>
-                </Card>
-
-                <Card style="margin-bottom: 20px" v-if="detailFormModal.type!=0">
-                    <p slot="title">
-                        <Icon type="ios-list"></Icon>
-                        退货信息
-                    </p>
-
-                    <row>
-                        <i-col span="8">
-                            <form-item label="快递公司">
-                                {{detailFormModal.refundEName}}
-                            </form-item>
-                        </i-col>
-                        <i-col span="8">
-                            <form-item label="快递单号">
-                                {{detailFormModal.refundEcode}}
-                            </form-item>
-                        </i-col>
-                        <i-col span="8">
-                            <form-item label="退货理由">
-                                {{detailFormModal.refundComment}}
-                            </form-item>
-                        </i-col>
-                    </row>
-
-                    <row>
-                        <i-col span="8">
-                            <form-item label="图片凭证">
-                                <div v-for="item in detailFormModal.refundProofs" style="display: inline-block">
-                                    <img :src="getImage(item)" width="58px" height="58px" style="margin-right: 5px">
-                                </div>
-                            </form-item>
-                        </i-col>
-                    </row>
-                </Card>
-
-                <Card v-if="detailFormModalExtra.refundFlag">
+                <Card v-if="detailFormModal.refundFlag">
                     <p slot="title">
                         <Icon type="ios-list"></Icon>
                         操作面板
@@ -226,7 +133,7 @@
                             <form-item label="是否同意">
                                 <i-switch v-model="detailFormModal.isAgree" size="large" @on-change="onChange">
                                     <span slot="open">同意</span>
-                                    <span slot="close"></span>
+                                    <span slot="close">不同意</span>
                                 </i-switch>
                             </form-item>
                         </i-col>
@@ -252,38 +159,17 @@
                         </i-col>
                     </row>
 
-                    <row v-if="detailFormModal.type!=0">
-                        <i-col span="8">
-                            <form-item label="退货地址" v-if="detailFormModal.isAgree">
-                                <i-Input v-model="detailFormModal.addressInfo" placeholder="请输入退货地址"></i-Input>
-                            </form-item>
-                        </i-col>
-
-                        <i-col span="8">
-                            <form-item label="退货联系人" v-if="detailFormModal.isAgree">
-                                <i-Input v-model="detailFormModal.userInfo" placeholder="请输入退货联系人"></i-Input>
-                            </form-item>
-
-                        </i-col>
-
-                        <i-col span="8">
-                            <form-item label="手机号码" v-if="detailFormModal.isAgree">
-                                <i-Input v-model="detailFormModal.phoneInfo" placeholder="请输入手机号码"></i-Input>
-                            </form-item>
-                        </i-col>
-                    </row>
-
                 </Card>
 
-                <Card v-if="detailFormModal.status==3">
+                <Card v-if="detailFormModal.status==4">
                     <p slot="title">
                         <Icon type="ios-list"></Icon>
-                        不同意理由
+                        失败理由
                     </p>
 
                     <row>
                         <i-col span="24">
-                            {{detailFormModal.disagreeComment}}
+                            {{detailFormModal.reason}}
                         </i-col>
                     </row>
 
@@ -293,9 +179,13 @@
 
             <div slot="footer">
 
-                <i-button type="primary" long :loading="modalLoading" @click="asyncOK('detailFormModal')"
-                          v-if="detailFormModalExtra.refundFlag">
+                <i-button type="warning" long :loading="modalLoading" @click="asyncOK('detailFormModal')"
+                          v-if="detailFormModal.refundFlag">
                     审核
+                </i-button>
+                <i-button type="primary" long :loading="modalLoading" @click="detailModal=false"
+                          v-else="detailFormModal.refundFlag">
+                    确定
                 </i-button>
 
             </div>
@@ -331,25 +221,23 @@
             return {
                 reasonList: [
                     {
-                        id: '已超过无理由退货时限',
-                        name: '已超过无理由退货时限'
+                        id: '已超过退款期限',
+                        name: '已超过退款期限'
                     },{
-                        id: '影响二次销售',
-                        name: '影响二次销售'
-                    },{
-                        id: '未上传凭证',
-                        name: '未上传凭证'
+                        id: '用户无理取闹',
+                        name: '用户无理取闹'
                     },{
                         id: '其他（要写拒绝说明）',
                         name: '其他（要写拒绝说明）'
                     }
                 ],
                 searchForm: {
-                    seqSearch: null,
-                    title: null,
+                    seq: null,
+                    refundSeq: null,
                     dateRange: [],
                     status: null,
-                    type: null,
+                    begin: null,
+                    end: null,
                     pageNum: 1
                 },
                 statusList: [{
@@ -357,28 +245,13 @@
                     name: '申请退款'
                 }, {
                     id: 2,
-                    name: '同意退款'
+                    name: '退款审核中'
                 }, {
                     id: 3,
-                    name: '不同意退款'
+                    name: '退款完成'
                 }, {
                     id: 4,
-                    name: '退款中'
-                }, {
-                    id: 5,
-                    name: '退款成功'
-                }, {
-                    id: 6,
                     name: '退款失败'
-                }, {
-                    id: 7,
-                    name: '取消退款'
-                }, {
-                    id: 8,
-                    name: '第三方审核中'
-                }, {
-                    id: 9,
-                    name: '一审通过'
                 }],
                 typeList: [{
                     id: 0,
@@ -390,97 +263,88 @@
                     id: 2,
                     name: '退货退款'
                 }],
-                expressStatusList: [{
-                    id: 0,
-                    name: '未发货'
-                }, {
-                    id: 1,
-                    name: '已发货'
-                }, {
-                    id: 2,
-                    name: '已签收'
-                }, {
-                    id: 3,
-                    name: '已拒收'
-                }, {
-                    id: 4,
-                    name: '已收货'
+                payChannelList: [{
+                    name: '微信',
+                    id: 1
+                },{
+                    name: '支付宝',
+                    id: 2
+                },{
+                    name: '银联',
+                    id: 3
                 }],
                 searchRule: {},
 
                 tableData: [],
                 tableDataCount: 0,
                 tableColumns: [{
-                    title: '供应商单号',
-                    width: 160,
-                    key: 'supplierSeq'
+                    title: '本地单号',
+                    width: 200,
+                    key: 'seq'
+                },{
+                    title: '退款单号',
+                    width: 180,
+                    key: 'refundSeq'
                 }, {
-                    title: '供应商',
-                    width: 150,
+                    title: '退款状态',
+                    width: 120,
                     render: function (h, params) {
 
-                        if (utils.isEmpty(params.row.supplierSeq)) {
+                        if (utils.isEmpty(params.row.status)) {
                             return;
                         }
 
-                        var supplier = store.state.supplierMap[params.row.supplierId];
-
-                        if (supplier == null) {
-                            supplier = {
-                                name: ''
-                            };
-                        }
-                        return h('div', supplier.name);
-                    }
-                }, {
-                    title: '名称',
-                    render: function (h, params) {
-                        var count = params.row.count;
-
-                        if (count == 1) {
-                            return h('div', params.row.title);
-                        }
-
-                        return h('div', params.row.title + '等' + count + '件商品');
-                    }
-                }, {
-                    title: '状态/类型',
-                    width: 120,
-                    render: function (h, params) {
                         var status = utils.getItem(vm.statusList, 'id', params.row.status);
 
                         if (status == null) {
-                            return;
+                            status = {
+                                name: ''
+                            };
                         }
-
-                        var type = utils.getItem(vm.typeList, 'id', params.row.type);
-
-                        if (type == null) {
-                            return;
-                        }
-
-                        return h('div', [h('h4', status.name), h('div', '类型 : ' + type.name)]);
+                        return h('div', status.name);
                     }
                 }, {
-                    title: '用户id',
-                    width: 100,
-                    key: 'uid'
-                }, {
+                    title: '退款金额',
+                    // width: 80,
+                    render: function (h, params) {
+                        var refundFee = params.row.refundFee/100;
+                        return h('div', refundFee);
+                    }
+                },{
+                    title: '支付渠道',
+                    width: 120,
+                    render: function(h,params){
+                        var payChannel = utils.getItem(vm.payChannelList, 'id', params.row.payChannel);
+                        if (!payChannel){
+                            payChannel = {
+                                name: ''
+                            }
+                        }
+                        return h('div', payChannel.name);
+                    }
+                },{
                     title: '申请退款时间',
                     width: 150,
-                    key: 'applyTime',
+                    key: 'created',
                     format: 'Time'
                 }, {
                     title: '申请人/审核人',
-                    width: 120,
+                    width: 150,
                     render: function (h, params) {
-                        var auditorName = params.row.auditorName;
 
-                        if (auditorName == null) {
-                            auditorName = '';
+                        var applyName = params.row.applyName;
+
+                        if (applyName == null) {
+                            applyName = '';
                         }
 
-                        return h('div', [h('h4', '申请人 : ' + params.row.applyName), h('div', '审核人 : ' + auditorName)]);
+                        var checkName = params.row.checkName;
+
+                        if (checkName == null) {
+                            checkName = '';
+                        }
+
+                        return h('div', [h('h4', '申请人 : ' + applyName), h('div', '审核人 : ' + checkName)]);
                     }
                 }, {
                     title: '操作',
@@ -488,7 +352,7 @@
                     width: 80,
                     render: function (h, params) {
 
-                        if (utils.isEmpty(params.row.supplierSeq)) {
+                        if (utils.isEmpty(params.row.refundSeq)) {
                             return;
                         }
 
@@ -499,7 +363,7 @@
                             },
                             on: {
                                 click: function () {
-                                    vm.goDetail(params);
+                                    vm.goDetail(params.row);
                                 }
                             }
                         }, '详情');
@@ -520,35 +384,23 @@
 
                 detailModal: false,
                 detailFormModal: {
-                    uid: null,
-                    supplierSeq: null,
-                    supplierId: null,
-                    type: null,
-                    typeLabel: null,
+                    id: null,
+                    seq: null,
+                    outSeq: null,
+                    refundSeq: null,
                     status: null,
                     statusLabel: null,
                     payChannel: null,
                     payChannelLabel: null,
-                    applyTime: null,
-                    payTime: null,
-                    describeText: null,
+                    refundFee: null,
+                    payFee: null,
+                    refundTime: null,
                     comment: null,
-                    amt: null,
-                    postage: null,
-                    totalRefund: null,
-                    discount: null,
-                    goldAmount: null,
-                    productList: [],
-                    refundEid: null,
-                    refundEName: null,
-                    refundEcode: null,
-                    refundComment: null,
-                    refundProofs: [],
+                    created: null,
+                    updated: null,
+                    refundFlag: true,
+                    isAgree: null,
                     disagreeComment: null,
-                    addressInfo: null,
-                    userInfo: null,
-                    phoneInfo: null,
-                    isAgree: true,
                     reason: null
                 },
                 detailFormModalExtra: {
@@ -607,15 +459,15 @@
 
                     if (searchForm.dateRange.length != 0 && utils.isNotEmpty(searchForm.dateRange[0]) && utils.isNotEmpty(searchForm.dateRange[1])) {
 
-                        searchForm.startTime = Date.parse(searchForm.dateRange[0]);
+                        searchForm.begin = Date.parse(searchForm.dateRange[0]);
 
                         var nextDate = searchForm.dateRange[1];
                         nextDate.setDate(nextDate.getDate() + 1);
-                        searchForm.endTime = Date.parse(nextDate);
+                        searchForm.end = Date.parse(nextDate);
                     }
                     else {
-                        searchForm.startTime = null;
-                        searchForm.endTime = null;
+                        searchForm.begin = null;
+                        searchForm.end = null;
                     }
 
                     utils.get('${contextPath}/orderRefund/listByPage', searchForm, function (result) {
@@ -671,13 +523,6 @@
             asyncOK: function (name) {
                 with (this) {
 
-                    if (detailFormModal.type != 0 && detailFormModal.isAgree) {
-                        if (utils.isEmpty(detailFormModal.addressInfo) || utils.isEmpty(detailFormModal.userInfo) || utils.isEmpty(detailFormModal.phoneInfo)) {
-                            $Message.error("请填写完整的退货信息");
-                            return;
-                        }
-                    }
-
                     if (!detailFormModal.isAgree && utils.isEmpty(detailFormModal.reason)) {
                         $Message.error("请选择不同意理由");
                         return;
@@ -688,48 +533,19 @@
                         return;
                     }
 
-                    if (!detailFormModal.isAgree) {
-                        auditRefund();
-                        return;
-                    }
-
-                    if (utils.isNotEmpty(detailFormModalExtra.msg)) {
-                        if (detailFormModalExtra.continueRefund) {
-                            $Modal.confirm({
-                                title: '校验结果',
-                                content: detailFormModalExtra.msg,
-                                okText: '继续退款',
-                                onOk: function () {
-                                    auditRefund();
-                                }
-                            });
-                        }
-                        else {
-                            $Modal.info({
-                                title: '校验结果',
-                                content: detailFormModalExtra.msg
-                            });
-                        }
-                    }
-                    else {
-                        auditRefund();
-                    }
-
+                    auditRefund();
                 }
             },
             auditRefund: function () {
                 with (this) {
                     if (detailFormModal.isAgree){
-                        detailFormModal.disagreeComment = null;
                         detailFormModal.reason = '';
                     }else {
                         if(detailFormModal.reason == '其他（要写拒绝说明）'){
-                            detailFormModal.disagreeComment = '其他：' + detailFormModal.disagreeComment;
-                        }else{
-                            detailFormModal.disagreeComment = detailFormModal.reason;
+                            detailFormModal.reason = '其他：' + detailFormModal.reason;
                         }
                     }
-                    utils.postJson('${contextPath}/orderRefund/auditRefund', detailFormModal, function (result) {
+                    utils.post('${contextPath}/orderRefund/doRefund', detailFormModal, function (result) {
                         if (result.success) {
                             detailModal = false;
                             $Message.success('操作成功');
@@ -747,133 +563,45 @@
                     modalLoading = true;
                     detailModal = true;
 
-                    loadDetail(params.row.supplierSeq, params.row.uid, params.row.applyTime);
+                    loadDetail(params);
                 }
             },
-            loadDetail: function (supplierSeq, uid, applyTime) {
+            loadDetail: function (params) {
                 with (this) {
                     modalLoading = true;
-                    utils.get('${contextPath}/orderRefund/orderDetail', {
-                        supplierSeq: supplierSeq,
-                        uid: uid,
-                        applyTime: applyTime
-                    }, function (result) {
-                        if (result.success) {
+                    utils.copyBean(params, detailFormModal);
+                    detailFormModal.isAgree = false;
+                    var status = utils.getItem(statusList, 'id', detailFormModal.status);
 
-                            utils.copyBean(result.data, detailFormModal);
-                            detailFormModal.isAgree = true;
+                    if (status == null) {
+                        status = {
+                            name: ''
+                        };
+                    }
+                    detailFormModal.statusLabel = status.name;
 
-                            var expressStatus = utils.getItem(expressStatusList, 'id', detailFormModal.expressStatus);
-
-                            if (expressStatus == null) {
-                                expressStatus = {
-                                    name: '未发货'
-                                };
-                            }
-
-                            detailFormModal.expressStatusLabel = expressStatus.name;
-
-                            var type = utils.getItem(typeList, 'id', detailFormModal.type);
-
-                            if (type == null) {
-                                type = {
-                                    name: ''
-                                };
-                            }
-
-                            detailFormModal.typeLabel = type.name;
+                    detailFormModal.orderFee = detailFormModal.orderFee/100;
+                    detailFormModal.payFee = detailFormModal.payFee/100;
+                    detailFormModal.refundFee = detailFormModal.refundFee/100;
+                    detailFormModal.refundTime = utils.dateFormat(detailFormModal.refundTime);
+                    detailFormModal.created = utils.dateFormat(detailFormModal.created);
+                    detailFormModal.updated = utils.dateFormat(detailFormModal.updated);
 
 
-                            var supplier = store.state.supplierMap[detailFormModal.supplierId];
+                    var payChannel = utils.getItem(payChannelList, 'id', detailFormModal.payChannel);
+                    if (payChannel){
+                        detailFormModal.payChannelLabel = payChannel.name;
+                    }else {
+                        detailFormModal.payChannelLabel = '';
+                    }
 
-                            if (supplier == null) {
-                                supplier = {
-                                    name: ''
-                                };
-                            }
-
-                            detailFormModal.supplierId = supplier.name;
-
-                            var status = utils.getItem(statusList, 'id', detailFormModal.status);
-
-                            detailFormModal.statusLabel = status.name;
-
-                            var payChannel = store.state.payChannelMap[detailFormModal.payChannel];
-
-                            if (payChannel == null) {
-                                payChannel = {
-                                    label: ''
-                                };
-                            }
-
-                            var express = store.state.expressMap[detailFormModal.refundEid];
-
-                            if (express == null) {
-                                express = {
-                                    name: ''
-                                };
-                            }
-
-                            detailFormModal.refundEName = express.name;
-
-                            detailFormModal.payChannelLabel = payChannel.label;
-
-                            if (detailFormModal.payTime != null) {
-                                detailFormModal.payTime = utils.dateFormat(detailFormModal.payTime);
-                            }
-
-                            if (detailFormModal.status == 1 || detailFormModal.status == 9) {
-                                detailFormModalExtra.refundFlag = true;
-                            }
-                            else {
-                                detailFormModalExtra.refundFlag = false;
-                            }
-
-                            detailFormModalExtra.continueRefund = false;
-                            detailFormModalExtra.msg = null;
-                            if (detailFormModal.type == 0) {
-                                //仅退款
-                                switch (detailFormModal.expressStatus) {
-                                    case 0:
-                                        //未发货
-                                        break;
-                                    case 1:
-                                        //已发货
-                                        detailFormModalExtra.continueRefund = true;
-                                        detailFormModalExtra.msg = "该订单已发货，请联系用户拒收后再退款";
-                                        break;
-                                    case 2:
-                                        //已收货
-                                        detailFormModalExtra.continueRefund = true;
-                                        detailFormModalExtra.msg = "该订单用户已收货，请联系用户核实后继续退款";
-                                        break;
-                                    case 3:
-                                        //已拒收
-                                        break;
-                                    case 4:
-                                        //已确认收货
-                                        detailFormModalExtra.continueRefund = true;
-                                        detailFormModalExtra.msg = "该订单用户已收货，请联系用户核实后继续退款";
-                                        break;
-                                    default:
-                                        break;
-                                }
-
-                            }
-                            else if (detailFormModal.type == 2) {
-                                //退货退款
-
-                                //二审
-                                if (detailFormModal.status == 9 && detailFormModal.refundEid == null) {
-                                    detailFormModalExtra.continueRefund = false;
-                                    detailFormModalExtra.msg = "用户未填写退货物流，请联系用户填写";
-                                }
-
-                            }
-
-                            modalLoading = false;
-                        }
-                    });
+                    if (detailFormModal.status != 3 || detailFormModal.status != 4){
+                        detailFormModal.refundFlag = false;
+                    }else {
+                        detailFormModal.reason = '';
+                        detailFormModal.refundFlag = true;
+                    }
+                    modalLoading = false;
                 }
             },
             getImage: function (url) {

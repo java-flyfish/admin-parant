@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.woollen.admin.dao.entry.SysUser;
 import com.woollen.admin.dao.mapper.SysUserMapper;
 import com.woollen.admin.service.SysUserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +39,13 @@ public class SysUserServiceImpl implements SysUserService {
 
         QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
 
-        wrapper.like("name",search.trim()).orderByDesc("created");
+        if (StringUtils.isNotBlank(search)){
+            wrapper.like("name","%"+search.trim()+"%")
+                    .or().like("email","%"+search.trim()+"%")
+                    .or().like("phone","%"+search+"%")
+                    .or().like("nick_name","%"+search+"%")
+                    .orderByDesc("created");
+        }
 
         if (pageNum == null){
             pageNum = 1;

@@ -40,11 +40,11 @@ var router = new VueRouter({
         path: '/order',
         name: 'order',
         component: order
-    }/*, {
+    }, {
         path: '/refund',
         name: 'refund',
         component: refund
-    }, {
+    }/*, {
         path: '/thirdPlatform',
         name: 'thirdPlatform',
         component: thirdPlatform

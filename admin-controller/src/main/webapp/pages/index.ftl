@@ -32,10 +32,10 @@
                             设置
                         </template>
                         <Menu-Group title="友情链接">
-                            <Menu-Item name="2-1">小亚通</Menu-Item>
+                           <#-- <Menu-Item name="2-1">小亚通</Menu-Item>
                             <Menu-Item name="2-2">商户平台</Menu-Item>
                             <Menu-Item name="2-3">严选招财系统</Menu-Item>
-                            <Menu-Item name="2-4">博库分销系统</Menu-Item>
+                            <Menu-Item name="2-4">博库分销系统</Menu-Item>-->
                         </Menu-Group>
                         <Menu-Group title="其他">
                             <Menu-Item name="2-5">反馈及建议</Menu-Item>

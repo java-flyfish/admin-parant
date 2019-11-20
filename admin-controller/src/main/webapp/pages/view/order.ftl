@@ -4,14 +4,13 @@
             <i-Header class="layout-header-content color-white">
                 <i-form class="auto-height" ref="searchForm" :model="searchForm" :rules="searchRule" inline
                         @submit.native.prevent>
-
                     <form-item>
-                        <i-input clearable type="text" v-model="searchForm.seqSearch" placeholder="搜索单号"
+                        <i-input clearable type="text" v-model="searchForm.seq" placeholder="搜索单号"
                                  @on-enter="listByPage(1)">
                         </i-input>
                     </form-item>
                     <form-item>
-                        <i-input clearable type="text" v-model="searchForm.userSearch" placeholder="搜索用户id/卡号"
+                        <i-input clearable type="text" v-model="searchForm.phone" placeholder="搜索用户手机号"
                                  @on-enter="listByPage(1)">
                         </i-input>
                     </form-item>
@@ -317,11 +316,14 @@
 
             return {
                 searchForm: {
-                    seqSearch: null,
-                    userSearch: null,
-                    title: null,
-                    dateRange: [],
+                    seq: null,
+                    outSeq: null,
+                    name: null,
+                    phone: null,
                     status: null,
+                    adtSource: null,
+                    payChannel: null,
+                    dateRange: null,
                     pageNum: 1
                 },
                 payChannelList: [{
@@ -622,15 +624,15 @@
                     }
 
                     if (searchForm.dateRange.length != 0 && utils.isNotEmpty(searchForm.dateRange[0]) && utils.isNotEmpty(searchForm.dateRange[1])) {
-                        searchForm.startTime = Date.parse(searchForm.dateRange[0]);
+                        searchForm.begin = Date.parse(searchForm.dateRange[0]);
 
                         var nextDate = searchForm.dateRange[1];
                         nextDate.setDate(nextDate.getDate() + 1);
-                        searchForm.endTime = Date.parse(nextDate);
+                        searchForm.end = Date.parse(nextDate);
                     }
                     else {
-                        searchForm.startTime = null;
-                        searchForm.endTime = null;
+                        searchForm.begin = null;
+                        searchForm.end = null;
                     }
 
                     utils.get('${contextPath}/orderInfo/listByPage', searchForm, function (result) {
@@ -848,7 +850,7 @@
                     var status = utils.getItem(statusList, 'id', detailFormModal.status);
                     detailFormModal.statusLabel = status.name;
 
-                    var payChannel = utils.getItem(payChannelList, 'id', detailFormModal.status);
+                    var payChannel = utils.getItem(payChannelList, 'id', detailFormModal.payChannel);
                     if (payChannel){
                         detailFormModal.payChannelLabel = payChannel.name;
                     }else {
