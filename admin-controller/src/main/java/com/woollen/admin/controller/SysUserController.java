@@ -39,6 +39,7 @@ public class SysUserController extends BaseController {
     @NoLoginValidate
     @ResponseBody
     public Result login(HttpServletRequest request,@Valid LoginRequest loginRequest, BindingResult result){
+        request.getSession().removeAttribute("sysUser");
         if(result.hasErrors()){
             for (ObjectError error : result.getAllErrors()) {
                 throw new APException(error.getDefaultMessage());

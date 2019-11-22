@@ -50,6 +50,10 @@ public class PageController extends BaseController {
     @NoLoginValidate
     public String toLogin(Model model, HttpServletRequest request) {
         model.addAttribute("contextPath", request.getContextPath());
+        SysUser user = (SysUser)request.getSession().getAttribute("sysUser");
+        if(user != null){
+            return "/";
+        }
         return "login";
     }
 }
