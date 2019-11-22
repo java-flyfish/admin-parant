@@ -1,15 +1,7 @@
 package com.woollen.admin.interceptor;
 
-import com.alibaba.fastjson.JSONObject;
 import com.woollen.admin.annocation.NoLoginValidate;
-import com.woollen.admin.dao.entry.SysMenu;
-import com.woollen.admin.dao.entry.SysRole;
 import com.woollen.admin.dao.entry.SysUser;
-import com.woollen.admin.response.Result;
-import com.woollen.admin.service.SysMenuService;
-import com.woollen.admin.service.SysRoleService;
-import com.woollen.admin.service.SysUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -18,9 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @Info:

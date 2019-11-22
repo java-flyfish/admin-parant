@@ -11,9 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * Created by ajiang on 2017/6/12.
- */
+/*
+ * title
+ * @Author weiyang
+ * @Date 7:15 AM 2019/11/23
+ * @Param
+ * @return
+ **/
 @Controller
 public class PageController extends BaseController {
 
@@ -33,9 +37,6 @@ public class PageController extends BaseController {
         model.addAttribute("contextPath", request.getContextPath());
         model.addAttribute("userName", user.getName());
         model.addAttribute("email", user.getEmail());
-//        model.addAttribute("contextPath", request.getContextPath());
-//        model.addAttribute("contextPath", request.getContextPath());
-
         return "index";
     }
 
