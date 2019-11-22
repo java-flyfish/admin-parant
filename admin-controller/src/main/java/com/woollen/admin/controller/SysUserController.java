@@ -37,7 +37,8 @@ public class SysUserController extends BaseController {
 
     @RequestMapping(value = "login",method = RequestMethod.POST)
     @NoLoginValidate
-    public String login(HttpServletRequest request,@Valid LoginRequest loginRequest, BindingResult result){
+    @ResponseBody
+    public Result login(HttpServletRequest request,@Valid LoginRequest loginRequest, BindingResult result){
         if(result.hasErrors()){
             for (ObjectError error : result.getAllErrors()) {
                 throw new APException(error.getDefaultMessage());
@@ -46,10 +47,13 @@ public class SysUserController extends BaseController {
 
         SysUser sysUser = sysUserService.selectNamaAndPassword(loginRequest.getName(),loginRequest.getPassword());
         if (sysUser == null){
-            return "login";
+            throw new APException("用户名或密码错误");
+            //return "login";
         }
         request.getSession().setAttribute("sysUser",sysUser);
-        return "/";
+        return success("成功登陆！");
+//        request.getSession().setAttribute("sysUser",sysUser);
+//        return "/";
     }
 
     @GetMapping("logout")

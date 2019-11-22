@@ -32,7 +32,7 @@ public class PageController extends BaseController {
         SysUser user = (SysUser)request.getSession().getAttribute("sysUser");
         model.addAttribute("contextPath", request.getContextPath());
         model.addAttribute("userName", user.getName());
-        model.addAttribute("email", user.getName());
+        model.addAttribute("email", user.getEmail());
 //        model.addAttribute("contextPath", request.getContextPath());
 //        model.addAttribute("contextPath", request.getContextPath());
 
