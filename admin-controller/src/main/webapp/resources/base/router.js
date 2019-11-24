@@ -44,11 +44,11 @@ var router = new VueRouter({
         path: '/refund',
         name: 'refund',
         component: refund
-    }/*, {
-        path: '/thirdPlatform',
-        name: 'thirdPlatform',
-        component: thirdPlatform
-    }*/, {
+    }, {
+        path: '/pvStatistic',
+        name: 'pvStatistic',
+        component: pvStatistic
+    }, {
         path: '/user',
         name: 'user',
         component: user

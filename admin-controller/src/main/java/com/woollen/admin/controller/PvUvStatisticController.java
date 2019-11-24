@@ -1,5 +1,6 @@
 package com.woollen.admin.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.woollen.admin.base.BaseController;
 import com.woollen.admin.dao.request.PvStatisticRequest;
 import com.woollen.admin.dao.request.UvStatisticRequest;
@@ -34,8 +35,8 @@ public class PvUvStatisticController extends BaseController{
 
     @GetMapping("pv")
     public Result pvStatistic(PvStatisticRequest statisticRequest){
-        List<PvStatisticVo> statistic = pvStatisticService.statistic(statisticRequest);
-        return success(statistic);
+        PageInfo pageInfo = pvStatisticService.statistic(statisticRequest);
+        return success(pageInfo);
     }
 
     @GetMapping("uv")

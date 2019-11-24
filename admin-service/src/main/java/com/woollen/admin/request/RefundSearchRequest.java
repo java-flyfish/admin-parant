@@ -18,6 +18,9 @@ public class RefundSearchRequest {
     //退款单号
     private String refundSeq;
 
+    //退款状态
+    private Integer status;
+
     /**
      * 申请退款时间开始
      */

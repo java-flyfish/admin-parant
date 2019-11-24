@@ -1,5 +1,6 @@
 package com.woollen.admin;
 
+import com.github.pagehelper.PageInfo;
 import com.woollen.admin.dao.request.PvStatisticRequest;
 import com.woollen.admin.dao.request.UvStatisticRequest;
 import com.woollen.admin.dao.response.PvStatisticVo;
@@ -26,8 +27,8 @@ public class AdminControllerApplicationTests {
 
 	@Test
 	public void testPv() {
-        List<PvStatisticVo> statistic = pvStatisticService.statistic(new PvStatisticRequest());
-        System.out.println(statistic);
+        PageInfo pageInfo = pvStatisticService.statistic(new PvStatisticRequest());
+        System.out.println(pageInfo);
     }
 
     @Test

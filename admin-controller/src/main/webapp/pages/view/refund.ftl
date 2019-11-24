@@ -542,7 +542,7 @@
                         detailFormModal.reason = '';
                     }else {
                         if(detailFormModal.reason == '其他（要写拒绝说明）'){
-                            detailFormModal.reason = '其他：' + detailFormModal.reason;
+                            detailFormModal.reason = '其他：' + detailFormModal.disagreeComment;
                         }
                     }
                     utils.post('${contextPath}/orderRefund/doRefund', detailFormModal, function (result) {
@@ -595,7 +595,7 @@
                         detailFormModal.payChannelLabel = '';
                     }
 
-                    if (detailFormModal.status != 3 || detailFormModal.status != 4){
+                    if (detailFormModal.status == 3 || detailFormModal.status == 4){
                         detailFormModal.refundFlag = false;
                     }else {
                         detailFormModal.reason = '';

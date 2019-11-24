@@ -15,30 +15,39 @@
     </resultMap>
 
     <select id="statisticPv" parameterType="com.woollen.admin.dao.request.PvStatisticRequest" resultType="com.woollen.admin.dao.response.PvStatisticVo">
-        SELECT
+        SELECT source,
+        sum(case when type=1 then click else 0 end) `click`,
+        sum(case when type=2 then click else 0 end) `order`,
+        sum(case when type=3 then click else 0 end) `pay`,
         <if test="type  == 1">
-            FROM_UNIXTIME(created/1000,'%Y-%m-%d') as time,
+            FROM_UNIXTIME(created/1000,'%Y') as time
         </if>
         <if test="type == 2">
-            FROM_UNIXTIME(created/1000,'%Y-%u') as time,
+            FROM_UNIXTIME(created/1000,'%Y-%m') as time
         </if>
         <if test="type == 3">
-            FROM_UNIXTIME(created/1000,'%Y-%m') as time,
+            FROM_UNIXTIME(created/1000,'%Y-%u') as time
         </if>
         <if test="type == 4">
-            FROM_UNIXTIME(created/1000,'%Y') as time,
+            FROM_UNIXTIME(created/1000,'%Y-%m-%d') as time
         </if>
-         sum(click) as click FROM pv_statistic
+        <if test="type == 5">
+            FROM_UNIXTIME(created/1000,'%Y-%m-%d %H') as time
+        </if>
+        FROM pv_statistic
         where 1=1
+        <if test="source != null and source != '' ">
+            and source = #{source,jdbcType=VARCHAR}
+        </if>
+        <!--<if test="path != null">
+            and path = #{statisticRequest.path}
+        </if>-->
         <if test="beginTime != null ">
-          and created <![CDATA[>=]]> #{statisticRequest.beginTime}
+          and created <![CDATA[>=]]> #{beginTime,jdbcType=BIGINT}
         </if>
         <if test="endTime != null ">
-          and created <![CDATA[<=]]> #{statisticRequest.beginTime}
+          and created <![CDATA[<=]]> #{endTime,jdbcType=BIGINT}
         </if>
-          GROUP BY time order by time desc
-        <if test="beginTime == null and endTime == null">
-          limit 10
-        </if>
+          GROUP BY source,time order by time desc
     </select>
 </mapper>

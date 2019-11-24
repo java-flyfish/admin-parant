@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.woollen.admin.dao.entry.PvStatistic;
 import com.woollen.admin.dao.request.PvStatisticRequest;
 import com.woollen.admin.dao.response.PvStatisticVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,5 +18,5 @@ import java.util.List;
  */
 public interface PvStatisticMapperExter extends BaseMapper<PvStatistic> {
 
-    List<PvStatisticVo> statisticPv( PvStatisticRequest statisticRequest);
+    List<PvStatisticVo> statisticPv(PvStatisticRequest pvStatisticRequest);
 }

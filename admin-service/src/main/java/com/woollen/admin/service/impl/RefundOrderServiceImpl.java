@@ -82,6 +82,9 @@ public class RefundOrderServiceImpl implements RefundOrderService {
     public PageInfo getRefundOrderList(RefundSearchRequest request) {
         QueryWrapper<RefundOrder> wrapper = new QueryWrapper<>();
 
+        if (request.getStatus() != null){
+            wrapper.eq("status",request.getStatus());
+        }
         if (StringUtils.isNotBlank(request.getSeq())){
             wrapper.eq("seq",request.getSeq().trim());
         }

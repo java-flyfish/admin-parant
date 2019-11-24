@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woollen.admin.dao.mapper.OrderInfoMapperExter">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.woollen.admin.dao.entry.OrderInfo">
+        <id column="id" property="id" />
+        <result column="seq" property="seq" />
+        <result column="out_seq" property="outSeq" />
+        <result column="name" property="name" />
+        <result column="phone" property="phone" />
+        <result column="status" property="status" />
+        <result column="adt_source" property="adtSource" />
+        <result column="order_fee" property="orderFee" />
+        <result column="pay_fee" property="payFee" />
+        <result column="pay_channel" property="payChannel" />
+        <result column="pay_time" property="payTime" />
+        <result column="created" property="created" />
+        <result column="updated" property="updated" />
+    </resultMap>
+
+    <select id="statisticOrder" parameterType="com.woollen.admin.dao.request.OrderStatisticRequest" resultType="com.woollen.admin.dao.response.OrderStatisticVo">
+        SELECT adt_source source,count(1) 'sumOrder',
+        sum(case when (status=2 || status = 3) then 1 else 0 end) 'payOrder',
+        sum(case when (status=2 || status = 3) then pay_fee else 0 end) 'sumPay',
+        <if test="type  == 1">
+            FROM_UNIXTIME(created/1000,'%Y') as time
+        </if>
+        <if test="type == 2">
+            FROM_UNIXTIME(created/1000,'%Y-%m') as time
+        </if>
+        <if test="type == 3">
+            FROM_UNIXTIME(created/1000,'%Y-%u') as time
+        </if>
+        <if test="type == 4">
+            FROM_UNIXTIME(created/1000,'%Y-%m-%d') as time
+        </if>
+        <if test="type == 5">
+            FROM_UNIXTIME(created/1000,'%Y-%m-%d %H') as time
+        </if>
+        from order_info where
+
+        <if test="type  == 1">
+            FROM_UNIXTIME(created/1000,'%Y') in
+        </if>
+        <if test="type == 2">
+            FROM_UNIXTIME(created/1000,'%Y-%m') in
+        </if>
+        <if test="type == 3">
+            FROM_UNIXTIME(created/1000,'%Y-%u') in
+        </if>
+        <if test="type == 4">
+            FROM_UNIXTIME(created/1000,'%Y-%m-%d') in
+        </if>
+        <if test="type == 5">
+            FROM_UNIXTIME(created/1000,'%Y-%m-%d %H') in
+        </if>
+        <foreach collection="dateList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and adt_source in
+        <foreach collection="sourceList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        group by source,time
+    </select>
+</mapper>

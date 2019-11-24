@@ -40,7 +40,7 @@
 <#include "view/memberShip.ftl">-->
 <#include "view/order.ftl">
 <#include "view/refund.ftl">
-<#--<#include "view/thirdPlatform.ftl">-->
+<#include "view/pvStatistic.ftl">
 <#include "view/user.ftl">
 <#include "view/role.ftl">
 <#include "view/resource.ftl">
